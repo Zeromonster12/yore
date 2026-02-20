@@ -95,22 +95,28 @@ export default function LoginPage() {
                 Welcome back
               </p>
               <h1
-                className="text-white font-black uppercase text-5xl tracking-[-0.02em] leading-none"
-                style={{ fontFamily: "var(--font-display), sans-serif" }}
+                className="text-white font-black uppercase text-5xl tracking-[-0.02em] leading-none mb-3"
+                style={{
+                  fontFamily: "var(--font-display), sans-serif",
+                  marginBottom: "1rem",
+                }}
               >
                 Sign In
               </h1>
-              <div className="mt-4 h-px w-12 bg-white/20" />
             </div>
 
             {/* form */}
-            <form onSubmit={handleSubmit} className="space-y-10">
+            <form onSubmit={handleSubmit}>
               {/* email */}
-              <div className="space-y-2">
+              <div style={{ marginBottom: "1rem" }}>
                 <label
                   htmlFor="email"
                   className="block text-[9px] tracking-[0.4em] uppercase text-white/50"
-                  style={{ fontFamily: "var(--font-body), sans-serif" }}
+                  style={{
+                    fontFamily: "var(--font-body), sans-serif",
+                    display: "block",
+                    marginBottom: "0.5rem",
+                  }}
                 >
                   Email
                 </label>
@@ -128,8 +134,11 @@ export default function LoginPage() {
               </div>
 
               {/* password */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
+              <div style={{ marginBottom: "0.5rem" }}>
+                <div
+                  className="flex items-center justify-between"
+                  style={{ marginBottom: "0.1rem" }}
+                >
                   <label
                     htmlFor="password"
                     className="block text-[9px] tracking-[0.4em] uppercase text-white/50"
@@ -159,7 +168,7 @@ export default function LoginPage() {
               </div>
 
               {/* submit — sliding fill, same as main CTA */}
-              <div className="pt-4">
+              <div style={{ marginTop: "1rem" }}>
                 <button
                   type="submit"
                   disabled={loading}
@@ -221,7 +230,10 @@ export default function LoginPage() {
               <div className="h-px flex-1 bg-white/10" />
               <span
                 className="text-white/20 text-[9px] tracking-[0.4em] uppercase"
-                style={{ fontFamily: "var(--font-body), sans-serif" }}
+                style={{
+                  fontFamily: "var(--font-body), sans-serif",
+                  marginTop: "0.5rem",
+                }}
               >
                 No account?
               </span>
@@ -234,7 +246,10 @@ export default function LoginPage() {
             >
               <span
                 className="text-white/40 group-hover:text-white text-[9px] tracking-[0.4em] uppercase transition-colors duration-300 border-b border-white/15 group-hover:border-white/50 pb-px"
-                style={{ fontFamily: "var(--font-body), sans-serif" }}
+                style={{
+                  fontFamily: "var(--font-body), sans-serif",
+                  marginTop: "0.5rem",
+                }}
               >
                 Request Access
               </span>
