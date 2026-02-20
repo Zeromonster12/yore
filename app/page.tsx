@@ -170,12 +170,14 @@ export default function Home() {
             </p>
             <div className="h-px w-10 bg-white/30" />
           </div>
-          <p
-            className="mt-8 text-[clamp(2.5rem,6vw,5rem)] font-black uppercase tracking-[-0.02em] text-white/10 leading-none select-none"
-            style={{ fontFamily: "var(--font-display), sans-serif" }}
-          >
-            BeYORE
-          </p>
+          <Image
+            src="/beyore.png"
+            alt="BeYORE"
+            width={600}
+            height={120}
+            className="w-[28vw] md:w-[10vw] h-auto invert opacity-10 select-none"
+            style={{ marginTop: "1.5rem", marginBottom: "1rem" }}
+          />
 
           {/* GetYORE drip CTA */}
           <a
