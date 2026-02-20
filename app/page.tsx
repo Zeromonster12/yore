@@ -120,31 +120,11 @@ export default function Home() {
         <ul className="flex gap-7">
           <li>
             <a
-              href="#lookbook"
-              className="text-white/40 text-[10px] tracking-[0.3em] uppercase hover:text-white transition-colors duration-300"
-              style={{ fontFamily: "var(--font-body), sans-serif" }}
-            >
-              Lookbook
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.flace.sk/yore/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/login"
               className="text-white text-[10px] tracking-[0.3em] uppercase hover:text-white/60 transition-colors duration-300 border-b border-white/30 pb-px"
               style={{ fontFamily: "var(--font-body), sans-serif" }}
             >
-              Shop
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="text-white/40 text-[10px] tracking-[0.3em] uppercase hover:text-white transition-colors duration-300"
-              style={{ fontFamily: "var(--font-body), sans-serif" }}
-            >
-              About
+              LOGIN
             </a>
           </li>
         </ul>
