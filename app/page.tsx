@@ -170,13 +170,15 @@ export default function Home() {
         <div className="absolute inset-0 bg-linear-to-b from-black/80 via-transparent to-black" />
 
         <div className="relative z-10 flex flex-col items-center text-center select-none">
-          <h1
-            className="text-[22vw] md:text-[18vw] leading-[0.85] font-black uppercase tracking-[-0.04em] text-white"
-            style={{ fontFamily: "var(--font-display), sans-serif" }}
-          >
-            YORE
-          </h1>
-          <div className="flex items-center gap-5 mt-5">
+          <Image
+            src="/YORELOGO.png"
+            alt="YORE"
+            width={900}
+            height={200}
+            className="invert brightness-200 w-[60vw] md:w-[42vw] h-auto mb-4"
+            priority
+          />
+          <div className="flex items-center gap-5 mt-2">
             <div className="h-px w-10 bg-white/30" />
             <p
               className="text-[9px] text-white/40 tracking-[0.55em] uppercase"
