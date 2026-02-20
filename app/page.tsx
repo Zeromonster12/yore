@@ -176,7 +176,7 @@ export default function Home() {
             width={600}
             height={120}
             className="w-[28vw] md:w-[10vw] h-auto invert opacity-10 select-none"
-            style={{ marginTop: "1.5rem", marginBottom: "1rem" }}
+            style={{ marginTop: "1rem", marginBottom: "1rem" }}
           />
 
           {/* GetYORE drip CTA */}
