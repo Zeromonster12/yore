@@ -1,6 +1,7 @@
 ﻿"use client";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import PageLoader from "./components/PageLoader";
 
 // â”€â”€â”€ Photo paths â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const BASE = "/photos/YORE%20NITRA";
@@ -105,6 +106,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
+      <PageLoader />
       {/* â”€â”€ Nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-5">
         <Image
