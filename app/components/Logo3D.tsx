@@ -23,7 +23,14 @@ function LogoModel() {
 
 export default function Logo3D() {
   return (
-    <div style={{ width: "80vw", maxWidth: "900px", height: "200px", margin: "0 auto" }}>
+    <div
+      style={{
+        width: "80vw",
+        maxWidth: "900px",
+        height: "200px",
+        margin: "0 auto",
+      }}
+    >
       <Canvas
         camera={{ position: [0, 0, 14], fov: 50 }}
         gl={{ alpha: true, antialias: true }}
@@ -31,7 +38,11 @@ export default function Logo3D() {
       >
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 5, 5]} intensity={1.2} />
-        <directionalLight position={[-5, -2, -5]} intensity={0.4} color="#aaaaff" />
+        <directionalLight
+          position={[-5, -2, -5]}
+          intensity={0.4}
+          color="#aaaaff"
+        />
         <Suspense fallback={null}>
           <Center>
             <LogoModel />

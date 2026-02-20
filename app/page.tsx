@@ -10,20 +10,20 @@ const DIVIDER_2 = `${BASE}/IMG_7580.JPG`;
 
 const grid1 = [
   { src: `${BASE}/IMG_7433.JPG`, tall: true },
-  { src: `${BASE}/IMG_7441.JPG`, tall: false },
+  { src: `${BASE}/IMG_7441.JPG`, tall: false, color: true },
   { src: `${BASE}/IMG_7448.JPG`, tall: false },
-  { src: `${BASE}/IMG_7454.JPG`, tall: true },
+  { src: `${BASE}/IMG_7454.JPG`, tall: true, color: true },
   { src: `${BASE}/IMG_7464.JPG`, tall: false },
-  { src: `${BASE}/IMG_7468.JPG`, tall: false },
+  { src: `${BASE}/IMG_7468.JPG`, tall: false, color: true },
 ];
 
 const grid2 = [
   { src: `${BASE}/IMG_7519.JPG` },
-  { src: `${BASE}/IMG_7522.JPG` },
+  { src: `${BASE}/IMG_7522.JPG`, color: true },
   { src: `${BASE}/IMG_7525.JPG` },
-  { src: `${BASE}/IMG_7526.JPG` },
+  { src: `${BASE}/IMG_7526.JPG`, color: true },
   { src: `${BASE}/IMG_7554.JPG` },
-  { src: `${BASE}/IMG_7558.JPG` },
+  { src: `${BASE}/IMG_7558.JPG`, color: true },
   { src: `${BASE}/IMG_7561.JPG` },
   { src: `${BASE}/IMG_7590.JPG` },
 ];
@@ -79,7 +79,7 @@ function ParallaxBand({ src, label }: { src: string; label?: string }) {
       {label && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <span
-            className="text-white/10 text-[14vw] font-black uppercase tracking-[-0.03em] select-none"
+            className="text-white/20 text-[14vw] font-black uppercase tracking-[-0.03em] select-none"
             style={{ fontFamily: "var(--font-display), sans-serif" }}
           >
             {label}
@@ -250,7 +250,7 @@ export default function Home() {
           className="text-white/25 text-[9px] tracking-[0.5em] uppercase"
           style={{ fontFamily: "var(--font-body), sans-serif" }}
         >
-          Lookbook â€” SS26
+          Lookbook SS26
         </span>
         <div className="h-px flex-1 bg-white/10" />
       </div>
@@ -271,7 +271,7 @@ export default function Home() {
                   src={item.src}
                   alt={`Look ${n}`}
                   fill
-                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-[1.04]"
+                  className={`object-cover transition-all duration-700 group-hover:scale-[1.04] ${item.color ? "" : "grayscale group-hover:grayscale-0"}`}
                   sizes="33vw"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-500" />
@@ -307,7 +307,7 @@ export default function Home() {
                   src={item.src}
                   alt={`Look ${n}`}
                   fill
-                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-[1.03]"
+                  className={`object-cover transition-all duration-700 group-hover:scale-[1.03] ${item.color ? "" : "grayscale group-hover:grayscale-0"}`}
                   sizes="(max-width: 768px) 50vw, 25vw"
                 />
                 <div className="absolute inset-0 bg-black/25 group-hover:bg-transparent transition-all duration-500" />
@@ -329,7 +329,7 @@ export default function Home() {
       {/* â”€â”€ Quote block â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-28 px-6 md:px-20 flex flex-col items-center text-center gap-8">
         <p
-          className="text-white/6 text-[clamp(4rem,12vw,11rem)] font-black uppercase leading-[0.88] tracking-[-0.04em]"
+          className="text-white/10 text-[clamp(4rem,12vw,11rem)] font-black uppercase leading-[0.88] tracking-[-0.04em]"
           style={{ fontFamily: "var(--font-display), sans-serif" }}
         >
           Be
@@ -353,17 +353,6 @@ export default function Home() {
           >
             More looks
           </span>
-          <div className="flex gap-2">
-            {(["â†", "â†’"] as const).map((arrow, idx) => (
-              <button
-                key={arrow}
-                onClick={() => scrollStrip(idx === 0 ? -1 : 1)}
-                className="w-7 h-7 border border-white/15 text-white/30 hover:border-white hover:text-white transition-all text-sm flex items-center justify-center"
-              >
-                {arrow}
-              </button>
-            ))}
-          </div>
         </div>
         <div
           ref={stripRef}
