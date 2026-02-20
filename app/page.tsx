@@ -160,7 +160,10 @@ export default function Home() {
             className="invert brightness-200 w-[60vw] md:w-[42vw] h-auto mb-4"
             priority
           />
-          <div className="flex items-center gap-5 mt-2">
+          <div
+            className="flex items-center gap-5 mt-2"
+            style={{ marginTop: "1rem" }}
+          >
             <div className="h-px w-10 bg-white/30" />
             <p
               className="text-[9px] text-white/40 tracking-[0.55em] uppercase"
