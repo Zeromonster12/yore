@@ -108,11 +108,14 @@ export default function Home() {
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
       <PageLoader />
       {/* â”€â”€ Nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-5">
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-5"
+        style={{ marginTop: "1rem", marginLeft: "1rem" }}
+      >
         <Image
-          src="/YORELOGO.png"
+          src="/yoremini.png"
           alt="YORE"
-          width={72}
+          width={48}
           height={28}
           className="invert brightness-200"
           priority
@@ -122,7 +125,10 @@ export default function Home() {
             <a
               href="/login"
               className="text-white text-[10px] tracking-[0.3em] uppercase hover:text-white/60 transition-colors duration-300 border-b border-white/30 pb-px"
-              style={{ fontFamily: "var(--font-body), sans-serif" }}
+              style={{
+                fontFamily: "var(--font-body), sans-serif",
+                marginRight: "1rem",
+              }}
             >
               LOGIN
             </a>
