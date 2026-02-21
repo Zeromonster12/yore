@@ -382,18 +382,21 @@ export default function Home() {
       </section>
 
       {/* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <footer className="mt-12 border-t border-white/[0.07] py-8 px-6 md:px-10 flex items-center justify-between">
+      <footer
+        className="mt-12 border-t border-white/20 py-20 px-6 md:px-10 flex items-center justify-between"
+        style={{ padding: "2rem 1rem" }}
+      >
         <Image
           src="/YORELOGO.png"
           alt="YORE"
-          width={60}
-          height={24}
-          className="invert opacity-60"
+          width={68}
+          height={26}
+          className="invert opacity-80"
         />
         <div className="flex items-center gap-8">
           <a
-            href="#"
-            className="text-white/20 text-[9px] tracking-[0.35em] uppercase hover:text-white/60 transition-colors"
+            href="https://www.instagram.com/yore.form/"
+            className="text-white/40 text-[10px] tracking-[0.35em] uppercase font-medium hover:text-white/80 transition-colors"
             style={{ fontFamily: "var(--font-body), sans-serif" }}
           >
             Instagram
@@ -402,21 +405,21 @@ export default function Home() {
             href="https://www.flace.sk/yore/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/50 text-[9px] tracking-[0.35em] uppercase hover:text-white transition-colors border-b border-white/20 pb-px"
+            className="text-white/70 text-[10px] tracking-[0.35em] uppercase font-medium hover:text-white transition-colors border-b border-white/40 pb-px"
             style={{ fontFamily: "var(--font-body), sans-serif" }}
           >
             GetYORE drip
           </a>
           <a
             href="#"
-            className="text-white/20 text-[9px] tracking-[0.35em] uppercase hover:text-white/60 transition-colors"
+            className="text-white/40 text-[10px] tracking-[0.35em] uppercase font-medium hover:text-white/80 transition-colors"
             style={{ fontFamily: "var(--font-body), sans-serif" }}
           >
             Contact
           </a>
         </div>
         <span
-          className="text-white/10 text-[9px] tracking-[0.2em]"
+          className="text-white/40 text-[10px] tracking-[0.2em] font-medium"
           style={{ fontFamily: "var(--font-body), sans-serif" }}
         >
           © 2026 YORE

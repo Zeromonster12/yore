@@ -259,15 +259,15 @@ export default function LoginPage() {
           {/* footer strip */}
           <div className="absolute bottom-8 flex items-center gap-8">
             <span
-              className="text-white/10 text-[9px] tracking-[0.35em] uppercase"
+              className="text-white/40 text-[10px] tracking-[0.35em] uppercase font-medium"
               style={{ fontFamily: "var(--font-body), sans-serif" }}
             >
               © {new Date().getFullYear()} YORE
             </span>
-            <div className="h-3 w-px bg-white/10" />
+            <div className="h-3 w-px bg-white/30" />
             <a
               href="#"
-              className="text-white/15 text-[9px] tracking-[0.35em] uppercase hover:text-white/40 transition-colors"
+              className="text-white/40 text-[10px] tracking-[0.35em] uppercase font-medium hover:text-white/70 transition-colors"
               style={{ fontFamily: "var(--font-body), sans-serif" }}
             >
               Privacy
