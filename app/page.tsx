@@ -252,7 +252,11 @@ export default function Home() {
             <span className="absolute inset-0 bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-in-out" />
             <span
               className="relative z-10 pl-8 pr-[calc(2rem+0.5em)] py-4 text-white group-hover:text-black text-xs font-black uppercase tracking-[0.5em] transition-colors duration-500"
-              style={{ fontFamily: "var(--font-display), sans-serif" }}
+              style={{
+                fontFamily: "var(--font-display), sans-serif",
+                paddingLeft: "calc(0.5rem + 0.5em)",
+                paddingRight: "calc(0.5rem + 0.5em)",
+              }}
             >
               GetYORE drip
             </span>
@@ -518,38 +522,24 @@ export default function Home() {
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Scroll to top"
-        className="group fixed bottom-8 right-8 z-50 flex flex-col items-center gap-2"
+        className="fixed bottom-8 right-8 z-50 w-11 h-11 border border-white/25 flex items-center justify-center text-white/40 hover:text-white hover:border-white/60 transition-all duration-300"
         style={{
           opacity: showTop ? 1 : 0,
           pointerEvents: showTop ? "auto" : "none",
           transform: showTop ? "translateY(0)" : "translateY(12px)",
-          transition: "opacity 0.4s ease, transform 0.4s ease",
+          transition:
+            "opacity 0.4s ease, transform 0.4s ease, color 0.3s, border-color 0.3s",
         }}
       >
-        <div className="relative flex items-center justify-center w-10 h-10 border border-white/25 group-hover:border-white/50 overflow-hidden transition-colors duration-300">
-          <span className="absolute inset-0 bg-white translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 14 14"
-            fill="none"
-            className="relative z-10 text-white/40 group-hover:text-black transition-colors duration-500"
-          >
-            <path
-              d="M1 9L7 3L13 9"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-        <span
-          className="text-[7px] text-white/20 tracking-[0.45em] uppercase group-hover:text-white/40 transition-colors duration-300"
-          style={{ fontFamily: "var(--font-body), sans-serif" }}
-        >
-          Top
-        </span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path
+            d="M1 9L7 3L13 9"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </button>
     </main>
   );
