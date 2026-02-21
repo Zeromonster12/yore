@@ -382,10 +382,7 @@ export default function Home() {
       </section>
 
       {/* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <footer
-        className="mt-12 border-t border-white/20 py-20 px-6 md:px-10 flex items-center justify-between"
-        style={{ padding: "2rem 1rem" }}
-      >
+      <footer className="mt-12 border-t border-white/20 py-14 px-6 md:px-10 flex flex-col items-center gap-8 md:flex-row md:justify-between">
         <Image
           src="/YORELOGO.png"
           alt="YORE"
@@ -393,7 +390,7 @@ export default function Home() {
           height={26}
           className="invert opacity-80"
         />
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-6 md:gap-8">
           <a
             href="https://www.instagram.com/yore.form/"
             className="text-white/40 text-[10px] tracking-[0.35em] uppercase font-medium hover:text-white/80 transition-colors"
