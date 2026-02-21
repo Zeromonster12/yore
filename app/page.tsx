@@ -58,7 +58,53 @@ function useParallax(ref: React.RefObject<HTMLElement | null>, speed = 0.35) {
   return offset;
 }
 
-// â”€â”€â”€ Parallax band component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// --- Scroll reveal component ---------------------------------------------------
+function RevealItem({
+  children,
+  delay = 0,
+  className,
+  style,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.05 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        ...style,
+        opacity: visible ? 1 : 0,
+        transform: visible
+          ? "translateY(0) scale(1)"
+          : "translateY(22px) scale(0.98)",
+        transition: `opacity 0.85s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.85s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 function ParallaxBand({ src, label }: { src: string; label?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const offset = useParallax(ref as React.RefObject<HTMLElement | null>, 0.28);
@@ -100,6 +146,13 @@ export default function Home() {
   const stripRef = useRef<HTMLDivElement>(null);
   const scrollStrip = (dir: number) =>
     stripRef.current?.scrollBy({ left: dir * 360, behavior: "smooth" });
+
+  const [showTop, setShowTop] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // counter for look numbers
   let lookNum = 0;
@@ -255,10 +308,11 @@ export default function Home() {
             lookNum++;
             const n = lookNum;
             return (
-              <div
+              <RevealItem
                 key={i}
                 className={`relative overflow-hidden group ${item.tall ? "row-span-2" : ""}`}
                 style={{ aspectRatio: item.tall ? "2/3" : "4/3" }}
+                delay={i * 70}
               >
                 <Image
                   src={item.src}
@@ -274,7 +328,7 @@ export default function Home() {
                 >
                   {String(n).padStart(2, "0")}
                 </span>
-              </div>
+              </RevealItem>
             );
           })}
         </div>
@@ -291,10 +345,11 @@ export default function Home() {
             const n = lookNum;
             const wide = i === 0 || i === 5;
             return (
-              <div
+              <RevealItem
                 key={i}
                 className={`relative overflow-hidden group ${wide ? "col-span-2" : "col-span-1"}`}
                 style={{ aspectRatio: wide ? "16/9" : "3/4" }}
+                delay={i * 60}
               >
                 <Image
                   src={item.src}
@@ -310,7 +365,7 @@ export default function Home() {
                 >
                   {String(n).padStart(2, "0")}
                 </span>
-              </div>
+              </RevealItem>
             );
           })}
         </div>
@@ -346,6 +401,38 @@ export default function Home() {
           >
             More looks
           </span>
+          <div className="flex gap-2">
+            <button
+              onClick={() => scrollStrip(-1)}
+              className="w-8 h-8 border border-white/20 flex items-center justify-center hover:border-white/50 hover:text-white text-white/40 transition-all duration-300"
+              aria-label="Scroll left"
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path
+                  d="M8 1L3 6L8 11"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            <button
+              onClick={() => scrollStrip(1)}
+              className="w-8 h-8 border border-white/20 flex items-center justify-center hover:border-white/50 hover:text-white text-white/40 transition-all duration-300"
+              aria-label="Scroll right"
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path
+                  d="M4 1L9 6L4 11"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
         <div
           ref={stripRef}
@@ -382,7 +469,11 @@ export default function Home() {
       </section>
 
       {/* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <footer className="mt-12 border-t border-white/20 py-14 px-6 md:px-10 flex flex-col items-center gap-8 md:flex-row md:justify-between">
+      <footer
+        className="mt-12 border-t border-white/20 py-14 px-6 md:px-10 flex flex-col items-center gap-8 md:flex-row md:justify-between
+        "
+        style={{ padding: "1.5rem" }}
+      >
         <Image
           src="/YORELOGO.png"
           alt="YORE"
@@ -422,6 +513,44 @@ export default function Home() {
           © 2026 YORE
         </span>
       </footer>
+
+      {/* Scroll to top */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Scroll to top"
+        className="group fixed bottom-8 right-8 z-50 flex flex-col items-center gap-2"
+        style={{
+          opacity: showTop ? 1 : 0,
+          pointerEvents: showTop ? "auto" : "none",
+          transform: showTop ? "translateY(0)" : "translateY(12px)",
+          transition: "opacity 0.4s ease, transform 0.4s ease",
+        }}
+      >
+        <div className="relative flex items-center justify-center w-10 h-10 border border-white/25 group-hover:border-white/50 overflow-hidden transition-colors duration-300">
+          <span className="absolute inset-0 bg-white translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 14 14"
+            fill="none"
+            className="relative z-10 text-white/40 group-hover:text-black transition-colors duration-500"
+          >
+            <path
+              d="M1 9L7 3L13 9"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <span
+          className="text-[7px] text-white/20 tracking-[0.45em] uppercase group-hover:text-white/40 transition-colors duration-300"
+          style={{ fontFamily: "var(--font-body), sans-serif" }}
+        >
+          Top
+        </span>
+      </button>
     </main>
   );
 }
