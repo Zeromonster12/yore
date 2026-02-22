@@ -125,12 +125,13 @@ function ParallaxBand({ src, label }: { src: string; label?: string }) {
       <div className="absolute inset-0 bg-linear-to-b from-black/60 via-transparent to-black/60" />
       {label && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <span
-            className="text-white/20 text-[14vw] font-black uppercase tracking-[-0.03em] select-none"
-            style={{ fontFamily: "var(--font-display), sans-serif" }}
-          >
-            {label}
-          </span>
+          <Image
+            src="/YORELOGO.png"
+            alt="YORE"
+            width={900}
+            height={200}
+            className="invert opacity-20 w-[55vw] md:w-[40vw] h-auto select-none"
+          />
         </div>
       )}
     </div>
@@ -380,14 +381,13 @@ export default function Home() {
 
       {/* â”€â”€ Quote block â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-28 px-6 md:px-20 flex flex-col items-center text-center gap-8">
-        <p
-          className="text-white/10 text-[clamp(4rem,12vw,11rem)] font-black uppercase leading-[0.88] tracking-[-0.04em]"
-          style={{ fontFamily: "var(--font-display), sans-serif" }}
-        >
-          Be
-          <br />
-          YORE.
-        </p>
+        <Image
+          src="/beyore.png"
+          alt="BeYORE"
+          width={900}
+          height={300}
+          className="w-[70vw] md:w-[40vw] h-auto invert opacity-10 select-none"
+        />
         <span
           className="text-white/20 text-[9px] tracking-[0.5em] uppercase"
           style={{ fontFamily: "var(--font-body), sans-serif" }}
@@ -476,7 +476,12 @@ export default function Home() {
       <footer
         className="mt-12 border-t border-white/20 py-14 px-6 md:px-10 flex flex-col items-center gap-8 md:flex-row md:justify-between
         "
-        style={{ padding: "1.5rem" }}
+        style={{
+          paddingTop: "2.5rem",
+          paddingBottom: "2.5rem",
+          paddingLeft: "1rem",
+          paddingRight: "1rem",
+        }}
       >
         <Image
           src="/YORELOGO.png"

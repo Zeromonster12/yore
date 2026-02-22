@@ -21,11 +21,11 @@ export default function LoginPage() {
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* ── Nav ──────────────────────────────────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-5">
-        <a href="/">
+        <a href="/" style={{ marginTop: "1rem", marginLeft: "1rem" }}>
           <Image
-            src="/YORELOGO.png"
+            src="/yoremini.png"
             alt="YORE"
-            width={72}
+            width={48}
             height={28}
             className="invert brightness-200"
             priority
@@ -33,7 +33,10 @@ export default function LoginPage() {
         </a>
         <span
           className="text-white/25 text-[9px] tracking-[0.45em] uppercase"
-          style={{ fontFamily: "var(--font-body), sans-serif" }}
+          style={{
+            fontFamily: "var(--font-body), sans-serif",
+            marginRight: "3rem",
+          }}
         >
           Member Access
         </span>
@@ -177,7 +180,11 @@ export default function LoginPage() {
                   <span className="absolute inset-0 bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-in-out" />
                   <span
                     className="relative z-10 pl-8 pr-[calc(2rem+0.5em)] py-4 text-white group-hover:text-black text-xs font-black uppercase tracking-[0.5em] transition-colors duration-500"
-                    style={{ fontFamily: "var(--font-display), sans-serif" }}
+                    style={{
+                      fontFamily: "var(--font-display), sans-serif",
+                      paddingLeft: "calc(0.5rem + 0.5em)",
+                      paddingRight: "calc(0.5rem + 0.5em)",
+                    }}
                   >
                     {loading ? "Signing in…" : "Sign In"}
                   </span>
