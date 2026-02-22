@@ -77,7 +77,7 @@ export default function PageLoader() {
           className="text-white/20 text-[9px] tracking-[0.55em] uppercase"
           style={{ fontFamily: "var(--font-body), sans-serif" }}
         >
-          SS26 — Nitra
+          April — SS26
         </p>
 
         <div
@@ -171,7 +171,7 @@ export default function PageLoader() {
           transition: hiding ? "opacity 0.5s ease" : "none",
         }}
       >
-        SS26 — Nitra
+        April — SS26
       </p>
 
       {/* Progress bar */}
