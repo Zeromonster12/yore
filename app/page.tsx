@@ -160,7 +160,7 @@ export default function Home() {
   let lookNum = 0;
 
   return (
-    <main className="min-h-screen bg-black text-white overflow-x-hidden">
+    <main className="min-h-screen bg-[#161616] text-[#FAFAFA] overflow-x-hidden">
       <PageLoader />
       {/* â”€â”€ Nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <nav
@@ -175,20 +175,7 @@ export default function Home() {
           className="invert brightness-200"
           priority
         />
-        <ul className="flex gap-7">
-          <li>
-            <a
-              href="/login"
-              className="text-white text-[10px] tracking-[0.3em] uppercase hover:text-white/60 transition-colors duration-300 border-b border-white/30 pb-px"
-              style={{
-                fontFamily: "var(--font-body), sans-serif",
-                marginRight: "1rem",
-              }}
-            >
-              LOGIN
-            </a>
-          </li>
-        </ul>
+
       </nav>
 
       {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
@@ -209,8 +196,8 @@ export default function Home() {
             priority
           />
         </div>
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-linear-to-b from-black/80 via-transparent to-black" />
+        <div className="absolute inset-0 bg-[#161616]/55" />
+        <div className="absolute inset-0 bg-linear-to-b from-[#161616]/80 via-transparent to-[#161616]" />
 
         <div className="relative z-10 flex flex-col items-center text-center select-none">
           <Image
@@ -222,17 +209,8 @@ export default function Home() {
             priority
           />
           <div
-            className="flex items-center gap-5 mt-2"
-            style={{ marginTop: "1rem" }}
+            className="flex items-center gap-5 mt-1"
           >
-            <div className="h-px w-10 bg-white/30" />
-            <p
-              className="text-[9px] text-white/40 tracking-[0.55em] uppercase"
-              style={{ fontFamily: "var(--font-body), sans-serif" }}
-            >
-              Spring / Summer 2026 — Nitra
-            </p>
-            <div className="h-px w-10 bg-white/30" />
           </div>
           <Image
             src="/beyore.png"
@@ -251,9 +229,9 @@ export default function Home() {
             className="group relative mt-10 flex items-center gap-0 overflow-hidden"
           >
             {/* sliding fill */}
-            <span className="absolute inset-0 bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-in-out" />
+            <span className="absolute inset-0 bg-[#FAFAFA] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-in-out" />
             <span
-              className="relative z-10 pl-8 pr-[calc(2rem+0.5em)] py-4 text-white group-hover:text-black text-xs font-black uppercase tracking-[0.5em] transition-colors duration-500"
+              className="relative z-10 pl-8 pr-[calc(2rem+0.5em)] py-4 text-[#FAFAFA] group-hover:text-[#161616] text-xs font-black uppercase tracking-[0.5em] transition-colors duration-500"
               style={{
                 fontFamily: "var(--font-display), sans-serif",
                 paddingLeft: "calc(0.5rem + 0.5em)",
@@ -262,7 +240,7 @@ export default function Home() {
             >
               GetYORE drip
             </span>
-            <span className="relative z-10 flex items-center justify-center w-12 h-12 border-l border-white/20 group-hover:border-black/20 text-white/60 group-hover:text-black transition-all duration-500">
+            <span className="relative z-10 flex items-center justify-center w-12 h-12 border-l border-[#FAFAFA]/20 group-hover:border-[#161616]/20 text-[#FAFAFA]/60 group-hover:text-[#161616] transition-all duration-500">
               <svg
                 width="14"
                 height="14"
@@ -280,14 +258,14 @@ export default function Home() {
               </svg>
             </span>
             {/* border frame */}
-            <span className="absolute inset-0 border border-white/25 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+            <span className="absolute inset-0 border border-[#FAFAFA]/25 group-hover:border-[#FAFAFA] transition-colors duration-300 pointer-events-none" />
           </a>
         </div>
 
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
           <div className="w-px h-12 bg-linear-to-b from-white/50 to-transparent animate-pulse" />
           <span
-            className="text-[8px] text-white/20 tracking-[0.45em] uppercase"
+            className="text-[8px] text-[#FAFAFA]/20 tracking-[0.45em] uppercase"
             style={{ fontFamily: "var(--font-body), sans-serif" }}
           >
             Scroll
@@ -298,186 +276,34 @@ export default function Home() {
       <LookbookScroll />
 
       {/* â”€â”€ Section heading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <div className="flex items-center gap-5 px-6 md:px-10 py-10">
-        <div className="h-px flex-1 bg-white/10" />
-        <span
-          className="text-white/25 text-[9px] tracking-[0.5em] uppercase"
-          style={{ fontFamily: "var(--font-body), sans-serif" }}
-        >
-          Lookbook SS26
-        </span>
-        <div className="h-px flex-1 bg-white/10" />
-      </div>
-
+      
       {/* â”€â”€ Grid 1 â€” brickwork â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="px-2 md:px-4 pb-0.75">
-        <div className="grid grid-cols-3 gap-0.75">
-          {grid1.map((item, i) => {
-            lookNum++;
-            const n = lookNum;
-            return (
-              <RevealItem
-                key={i}
-                className={`relative overflow-hidden group ${item.tall ? "row-span-2" : ""}`}
-                style={{ aspectRatio: item.tall ? "2/3" : "4/3" }}
-                delay={i * 70}
-              >
-                <Image
-                  src={item.src}
-                  alt={`Look ${n}`}
-                  fill
-                  className={`object-cover transition-all duration-700 group-hover:scale-[1.04] ${item.color ? "" : "grayscale group-hover:grayscale-0"}`}
-                  sizes="33vw"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-500" />
-                <span
-                  className="absolute bottom-3 left-3 text-white/40 group-hover:text-white text-[9px] tracking-[0.3em] uppercase transition-colors duration-300"
-                  style={{ fontFamily: "var(--font-display), sans-serif" }}
-                >
-                  {String(n).padStart(2, "0")}
-                </span>
-              </RevealItem>
-            );
-          })}
-        </div>
-      </section>
+
 
       {/* â”€â”€ Parallax divider 1 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <ParallaxBand src={DIVIDER_1} label="YORE" />
 
       {/* â”€â”€ Grid 2 â€” mosaic â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="px-2 md:px-4 py-0.75">
-        <div className="grid grid-cols-4 gap-0.75">
-          {grid2.map((item, i) => {
-            lookNum++;
-            const n = lookNum;
-            const wide = i === 0 || i === 5;
-            return (
-              <RevealItem
-                key={i}
-                className={`relative overflow-hidden group ${wide ? "col-span-2" : "col-span-1"}`}
-                style={{ aspectRatio: wide ? "16/9" : "3/4" }}
-                delay={i * 60}
-              >
-                <Image
-                  src={item.src}
-                  alt={`Look ${n}`}
-                  fill
-                  className={`object-cover transition-all duration-700 group-hover:scale-[1.03] ${item.color ? "" : "grayscale group-hover:grayscale-0"}`}
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                />
-                <div className="absolute inset-0 bg-black/25 group-hover:bg-transparent transition-all duration-500" />
-                <span
-                  className="absolute bottom-3 left-3 text-white/30 group-hover:text-white/80 text-[9px] tracking-[0.3em] uppercase transition-colors duration-300"
-                  style={{ fontFamily: "var(--font-display), sans-serif" }}
-                >
-                  {String(n).padStart(2, "0")}
-                </span>
-              </RevealItem>
-            );
-          })}
-        </div>
-      </section>
+      
 
       {/* â”€â”€ Parallax divider 2 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <ParallaxBand src={DIVIDER_2} />
 
       {/* â”€â”€ Quote block â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-28 px-6 md:px-20 flex flex-col items-center text-center gap-8">
+      <section className="py-28 px-6 md:px-20 flex flex-col items-center text-center gap-8 !mt-12">
         <Image
-          src="/beyore.png"
+          src="/postavy.png"
           alt="BeYORE"
           width={900}
           height={300}
-          className="w-[70vw] md:w-[40vw] h-auto invert opacity-10 select-none"
+          className="w-[70vw] md:w-[40vw] h-auto select-none"
         />
-        <span
-          className="text-white/20 text-[9px] tracking-[0.5em] uppercase"
-          style={{ fontFamily: "var(--font-body), sans-serif" }}
-        >
-          YORE — SS26 — Nitra, Slovakia
-        </span>
       </section>
 
       {/* â”€â”€ Horizontal strip â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="pb-6">
-        <div className="flex items-center justify-between px-6 md:px-10 mb-4">
-          <span
-            className="text-white/25 text-[9px] tracking-[0.45em] uppercase"
-            style={{ fontFamily: "var(--font-body), sans-serif" }}
-          >
-            More looks
-          </span>
-          <div className="flex gap-2">
-            <button
-              onClick={() => scrollStrip(-1)}
-              className="w-8 h-8 border border-white/20 flex items-center justify-center hover:border-white/50 hover:text-white text-white/40 transition-all duration-300"
-              aria-label="Scroll left"
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path
-                  d="M8 1L3 6L8 11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-            <button
-              onClick={() => scrollStrip(1)}
-              className="w-8 h-8 border border-white/20 flex items-center justify-center hover:border-white/50 hover:text-white text-white/40 transition-all duration-300"
-              aria-label="Scroll right"
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path
-                  d="M4 1L9 6L4 11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-        <div
-          ref={stripRef}
-          className="flex gap-0.75 overflow-x-auto px-2 md:px-4"
-          style={{ scrollbarWidth: "none" }}
-        >
-          {strip.map((src, i) => {
-            lookNum++;
-            const n = lookNum;
-            return (
-              <div
-                key={i}
-                className="relative shrink-0 overflow-hidden group"
-                style={{ width: "300px", height: "450px" }}
-              >
-                <Image
-                  src={src}
-                  alt={`Look ${n}`}
-                  fill
-                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-[1.04]"
-                  sizes="300px"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-500" />
-                <span
-                  className="absolute bottom-3 left-3 text-white/30 group-hover:text-white/70 text-[9px] tracking-[0.3em] uppercase transition-colors duration-300"
-                  style={{ fontFamily: "var(--font-display), sans-serif" }}
-                >
-                  {String(n).padStart(2, "0")}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+
 
       {/* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <footer
-        className="mt-12 border-t border-white/20 py-14 px-6 md:px-10 flex flex-col items-center gap-8 md:flex-row md:justify-between
+        className="mt-12 border-white/20 py-14 px-6 md:px-10 flex flex-col items-center gap-8 md:flex-row md:justify-between
         "
         style={{
           paddingTop: "2.5rem",
@@ -496,7 +322,7 @@ export default function Home() {
         <div className="flex items-center gap-6 md:gap-8">
           <a
             href="https://www.instagram.com/yore.form/"
-            className="text-white/40 text-[10px] tracking-[0.35em] uppercase font-medium hover:text-white/80 transition-colors"
+            className="text-[#FAFAFA]/40 text-[10px] tracking-[0.35em] uppercase font-medium hover:text-[#FAFAFA]/80 transition-colors"
             style={{ fontFamily: "var(--font-body), sans-serif" }}
           >
             Instagram
@@ -505,21 +331,14 @@ export default function Home() {
             href="https://www.flace.sk/yore/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/70 text-[10px] tracking-[0.35em] uppercase font-medium hover:text-white transition-colors border-b border-white/40 pb-px"
+            className="text-[#FAFAFA]/40 text-[10px] tracking-[0.35em] uppercase font-medium hover:text-[#FAFAFA] transition-colors"
             style={{ fontFamily: "var(--font-body), sans-serif" }}
           >
             GetYORE drip
           </a>
-          <a
-            href="#"
-            className="text-white/40 text-[10px] tracking-[0.35em] uppercase font-medium hover:text-white/80 transition-colors"
-            style={{ fontFamily: "var(--font-body), sans-serif" }}
-          >
-            Contact
-          </a>
         </div>
         <span
-          className="text-white/40 text-[10px] tracking-[0.2em] font-medium"
+          className="text-[#FAFAFA]/40 text-[10px] tracking-[0.2em] font-medium"
           style={{ fontFamily: "var(--font-body), sans-serif" }}
         >
           © 2026 YORE
@@ -530,7 +349,7 @@ export default function Home() {
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Scroll to top"
-        className="fixed bottom-8 right-8 z-50 w-11 h-11 border border-white/25 flex items-center justify-center text-white/40 hover:text-white hover:border-white/60 transition-all duration-300"
+        className="fixed bottom-8 right-8 z-50 w-11 h-11 border border-[#FAFAFA]/25 flex items-center justify-center text-[#FAFAFA]/40 hover:text-[#FAFAFA] hover:border-[#FAFAFA]/60 transition-all duration-300"
         style={{
           opacity: showTop ? 1 : 0,
           pointerEvents: showTop ? "auto" : "none",

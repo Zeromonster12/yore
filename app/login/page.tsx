@@ -18,7 +18,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white overflow-x-hidden">
+    <main className="min-h-screen bg-[#161616] text-[#FAFAFA] overflow-x-hidden">
       {/* ── Nav ──────────────────────────────────────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-5">
         <a href="/" style={{ marginTop: "1rem", marginLeft: "1rem" }}>
@@ -54,12 +54,12 @@ export default function LoginPage() {
             sizes="50vw"
             priority
           />
-          <div className="absolute inset-0 bg-black/50" />
-          <div className="absolute inset-0 bg-linear-to-r from-transparent to-black/80" />
+          <div className="absolute inset-0 bg-[#161616]/50" />
+          <div className="absolute inset-0 bg-linear-to-r from-transparent to-[#161616]/80" />
           {/* watermark */}
           <div className="absolute inset-0 flex items-end justify-start p-10 pointer-events-none select-none">
             <p
-              className="text-white/[0.06] text-[10vw] font-black uppercase leading-none tracking-[-0.03em]"
+              className="text-[#FAFAFA]/6 text-[10vw] font-black uppercase leading-none tracking-[-0.03em]"
               style={{ fontFamily: "var(--font-display), sans-serif" }}
             >
               YORE
@@ -151,7 +151,7 @@ export default function LoginPage() {
                   </label>
                   <a
                     href="#"
-                    className="text-[9px] tracking-[0.3em] uppercase text-white/50 hover:text-white/60 transition-colors duration-300 border-b border-white/15 pb-px"
+                    className="text-[9px] tracking-[0.3em] uppercase text-[#FAFAFA]/50 hover:text-[#FAFAFA]/60 transition-colors duration-300 border-b border-[#FAFAFA]/15 pb-px"
                     style={{ fontFamily: "var(--font-body), sans-serif" }}
                   >
                     Forgot?
@@ -177,9 +177,9 @@ export default function LoginPage() {
                   disabled={loading}
                   className="group relative flex items-center overflow-hidden disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  <span className="absolute inset-0 bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-in-out" />
+                  <span className="absolute inset-0 bg-[#FAFAFA] translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-in-out" />
                   <span
-                    className="relative z-10 pl-8 pr-[calc(2rem+0.5em)] py-4 text-white group-hover:text-black text-xs font-black uppercase tracking-[0.5em] transition-colors duration-500"
+                    className="relative z-10 pl-8 pr-[calc(2rem+0.5em)] py-4 text-[#FAFAFA] group-hover:text-[#161616] text-xs font-black uppercase tracking-[0.5em] transition-colors duration-500"
                     style={{
                       fontFamily: "var(--font-display), sans-serif",
                       paddingLeft: "calc(0.5rem + 0.5em)",
@@ -188,7 +188,7 @@ export default function LoginPage() {
                   >
                     {loading ? "Signing in…" : "Sign In"}
                   </span>
-                  <span className="relative z-10 flex items-center justify-center w-12 h-12 border-l border-white/20 group-hover:border-black/20 text-white/60 group-hover:text-black transition-all duration-500">
+                  <span className="relative z-10 flex items-center justify-center w-12 h-12 border-l border-[#FAFAFA]/20 group-hover:border-[#161616]/20 text-[#FAFAFA]/60 group-hover:text-[#161616] transition-all duration-500">
                     {loading ? (
                       <svg
                         className="animate-spin h-3.5 w-3.5"
@@ -227,7 +227,7 @@ export default function LoginPage() {
                       </svg>
                     )}
                   </span>
-                  <span className="absolute inset-0 border border-white/25 group-hover:border-white transition-colors duration-300 pointer-events-none" />
+                  <span className="absolute inset-0 border border-[#FAFAFA]/25 group-hover:border-[#FAFAFA] transition-colors duration-300 pointer-events-none" />
                 </button>
               </div>
             </form>

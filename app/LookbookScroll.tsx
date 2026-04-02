@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -39,6 +39,7 @@ const SPREADS: Spread[] = [
     },
     right: {
       type: "editorial",
+      image: "/photos/YORE NITRA/IMG_7099.JPG",
       tag: "Introduction",
       headline: "Raw terrain.\nNew silhouettes.",
       sub: "Spring/Summer 2026 is an ode to negative space — utilitarian cuts stripped to their architecture, worn against Slovak concrete and open field.",
@@ -121,6 +122,7 @@ const SPREADS: Spread[] = [
     id: 4,
     left: {
       type: "editorial",
+      image: "/photos/YORE NITRA/IMG_7580.JPG",
       tag: "Closing",
       headline: "Worn.\nNot dressed.",
       sub: "Every piece in SS26 is designed to carry the weight of use — to improve with wear, to resist the disposable.",
@@ -141,66 +143,94 @@ const SPREADS: Spread[] = [
   },
 ];
 
+const DEFAULT_PAGE_IMAGE = "/photos/YORE NITRA/IMG_7099.JPG";
+
 // ─── Page sub-components ──────────────────────────────────────────────────────
 
 function CoverPage({ page }: { page: SpreadPage }) {
+  const coverImage = page.image ?? DEFAULT_PAGE_IMAGE;
+
   return (
     <div className="relative w-full h-full overflow-hidden bg-[#161616]">
-      {page.image && (
-        <Image src={page.image} alt="" fill className="object-cover grayscale" sizes="50vw" priority />
-      )}
-      <div className="absolute inset-0 bg-[#161616]/50" />
-      <div className="absolute bottom-0 left-0 right-0 p-10 flex flex-col gap-1">
-        <div className="h-px w-8 bg-[#FAFAFA]/25 mb-5" />
+      <Image
+        src={coverImage}
+        alt={page.headline ?? "Cover image"}
+        fill
+        className="object-cover grayscale"
+        sizes="50vw"
+        priority
+      />
+      <div className="absolute inset-0 bg-[#161616]/55" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/35 via-black/20 to-black/60" />
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-10">
         <span
-          className="text-[#FAFAFA]/35 text-[8px] tracking-[0.55em] uppercase"
+          className="text-[#FAFAFA]/55 text-[8px] tracking-[0.55em] uppercase"
           style={{ fontFamily: "var(--font-body)" }}
         >
           {page.sub}
         </span>
         <h2
-          className="text-[#FAFAFA] font-black uppercase leading-none tracking-[-0.02em]"
+          className="text-[#FAFAFA] font-black uppercase leading-none tracking-[-0.02em] mt-4"
           style={{ fontFamily: "var(--font-display)", fontSize: "clamp(52px,7vw,80px)" }}
         >
           {page.headline}
         </h2>
       </div>
+
+      {page.pageNumber !== undefined && (
+        <span
+          className="absolute right-8 bottom-7 text-[#FAFAFA]/55 text-[8px] tracking-[0.35em]"
+          style={{ fontFamily: "var(--font-body)" }}
+        >
+          {String(page.pageNumber).padStart(2, "0")}
+        </span>
+      )}
     </div>
   );
 }
 
 function EditorialPage({ page }: { page: SpreadPage }) {
+  const editorialImage = page.image ?? DEFAULT_PAGE_IMAGE;
+
   return (
-    <div className="relative w-full h-full bg-[#FAFAFA] flex flex-col justify-between p-10">
-      <div className="flex items-center gap-4">
-        <div className="h-px w-6 bg-[#161616]/18" />
+    <div className="relative w-full h-full overflow-hidden bg-[#161616]">
+      <Image
+        src={editorialImage}
+        alt={page.headline ?? "Editorial image"}
+        fill
+        className="object-cover grayscale"
+        sizes="50vw"
+      />
+      <div className="absolute inset-0 bg-[#161616]/52" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/35 via-black/20 to-black/55" />
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-10">
         <span
-          className="text-[#161616]/30 text-[8px] tracking-[0.5em] uppercase"
+          className="text-[#FAFAFA]/55 text-[8px] tracking-[0.5em] uppercase"
           style={{ fontFamily: "var(--font-body)" }}
         >
           {page.tag}
         </span>
-      </div>
 
-      <div className="flex flex-col gap-5">
         <h2
-          className="text-[#161616] font-black uppercase leading-[0.9] whitespace-pre-line"
+          className="text-[#FAFAFA] font-black uppercase leading-[0.9] whitespace-pre-line mt-4"
           style={{ fontFamily: "var(--font-display)", fontSize: "clamp(36px,5vw,52px)" }}
         >
           {page.headline}
         </h2>
         <p
-          className="text-[#161616]/50 text-[10px] leading-[1.85] max-w-[260px]"
+          className="text-[#FAFAFA]/75 text-[10px] leading-[1.85] max-w-md mt-5"
           style={{ fontFamily: "var(--font-body)" }}
         >
           {page.sub}
         </p>
       </div>
 
-      <div className="flex items-center gap-3">
-        <div className="h-px flex-1 bg-[#161616]/8" />
+      <div className="absolute bottom-7 left-8 right-8 flex items-center justify-between">
+        <div className="h-px flex-1 bg-[#FAFAFA]/20" />
         <span
-          className="text-[#161616]/20 text-[8px] tracking-[0.35em]"
+          className="text-[#FAFAFA]/55 text-[8px] tracking-[0.35em] ml-3"
           style={{ fontFamily: "var(--font-body)" }}
         >
           {String(page.pageNumber ?? "").padStart(2, "0")}
@@ -211,29 +241,38 @@ function EditorialPage({ page }: { page: SpreadPage }) {
 }
 
 function PhotoPage({ page }: { page: SpreadPage }) {
+  const photoImage = page.image ?? DEFAULT_PAGE_IMAGE;
+
   return (
     <div className="relative w-full h-full overflow-hidden bg-[#161616]">
-      {page.image && (
-        <Image src={page.image} alt={page.headline ?? ""} fill className="object-cover grayscale" sizes="50vw" />
-      )}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#161616]/75 via-transparent to-transparent" />
-      <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
-        <div>
-          <span
-            className="block text-[#FAFAFA]/35 text-[8px] tracking-[0.45em] uppercase mb-1"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            {page.tag}
-          </span>
-          <span
-            className="block text-[#FAFAFA] text-[13px] tracking-[0.18em] uppercase font-semibold"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            {page.headline}
-          </span>
-        </div>
+      <Image
+        src={photoImage}
+        alt={page.headline ?? "Photo page"}
+        fill
+        className="object-cover grayscale"
+        sizes="50vw"
+      />
+      <div className="absolute inset-0 bg-[#161616]/52" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/35 via-black/20 to-black/55" />
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-10">
         <span
-          className="text-[#FAFAFA]/20 text-[8px] tracking-[0.35em]"
+          className="text-[#FAFAFA]/55 text-[8px] tracking-[0.45em] uppercase"
+          style={{ fontFamily: "var(--font-body)" }}
+        >
+          {page.tag}
+        </span>
+        <h3
+          className="text-[#FAFAFA] text-[13px] tracking-[0.18em] uppercase font-semibold mt-4"
+          style={{ fontFamily: "var(--font-display)" }}
+        >
+          {page.headline}
+        </h3>
+      </div>
+
+      <div className="absolute right-8 bottom-7 flex items-center justify-end">
+        <span
+          className="text-[#FAFAFA]/55 text-[8px] tracking-[0.35em]"
           style={{ fontFamily: "var(--font-body)" }}
         >
           {String(page.pageNumber ?? "").padStart(2, "0")}
@@ -244,59 +283,67 @@ function PhotoPage({ page }: { page: SpreadPage }) {
 }
 
 function ProductPage({ page }: { page: SpreadPage }) {
+  const productImage = page.image ?? DEFAULT_PAGE_IMAGE;
+
   return (
-    <div className="relative w-full h-full bg-[#FAFAFA] flex flex-col justify-between p-10">
-      <div className="flex items-center gap-4">
-        <div className="h-px w-6 bg-[#161616]/18" />
+    <div className="relative w-full h-full overflow-hidden bg-[#161616]">
+      <Image
+        src={productImage}
+        alt={page.headline ?? "Product page"}
+        fill
+        className="object-cover grayscale"
+        sizes="50vw"
+      />
+      <div className="absolute inset-0 bg-[#161616]/58" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/35 via-black/20 to-black/60" />
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-10">
         <span
-          className="text-[#161616]/30 text-[8px] tracking-[0.5em] uppercase"
+          className="text-[#FAFAFA]/55 text-[8px] tracking-[0.5em] uppercase"
           style={{ fontFamily: "var(--font-body)" }}
         >
           {page.tag}
         </span>
-      </div>
 
-      <div className="flex flex-col gap-3">
         <h3
-          className="text-[#161616] font-black uppercase leading-none"
+          className="text-[#FAFAFA] font-black uppercase leading-none mt-4"
           style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px,4vw,40px)" }}
         >
           {page.headline}
         </h3>
         <p
-          className="text-[#161616]/40 text-[10px] leading-[1.75] max-w-[210px]"
+          className="text-[#FAFAFA]/75 text-[10px] leading-[1.75] max-w-md mt-4"
           style={{ fontFamily: "var(--font-body)" }}
         >
           {page.sub}
         </p>
+
+        <div className="w-full max-w-md mt-6">
+          {page.items?.map((item, i) => (
+            <div
+              key={i}
+              className="flex justify-between items-center py-2.5 border-b border-[#FAFAFA]/20"
+            >
+              <span
+                className="text-[#FAFAFA]/55 text-[8px] tracking-[0.35em] uppercase"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                {item.label}
+              </span>
+              <span
+                className="text-[#FAFAFA]/85 text-[10px] tracking-[0.12em]"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                {item.value}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="flex flex-col">
-        {page.items?.map((item, i) => (
-          <div
-            key={i}
-            className="flex justify-between items-center py-[10px] border-b border-[#161616]/8"
-          >
-            <span
-              className="text-[#161616]/30 text-[8px] tracking-[0.4em] uppercase"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              {item.label}
-            </span>
-            <span
-              className="text-[#161616]/80 text-[10px] tracking-[0.12em]"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              {item.value}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      <div className="flex items-center gap-3">
-        <div className="h-px flex-1 bg-[#161616]/8" />
+      <div className="absolute right-8 bottom-7 flex items-center justify-end">
         <span
-          className="text-[#161616]/20 text-[8px] tracking-[0.35em]"
+          className="text-[#FAFAFA]/55 text-[8px] tracking-[0.35em]"
           style={{ fontFamily: "var(--font-body)" }}
         >
           {String(page.pageNumber ?? "").padStart(2, "0")}
@@ -307,39 +354,49 @@ function ProductPage({ page }: { page: SpreadPage }) {
 }
 
 function CreditsPage({ page }: { page: SpreadPage }) {
+  const creditsImage = page.image ?? DEFAULT_PAGE_IMAGE;
+
   return (
-    <div className="relative w-full h-full bg-[#161616] flex flex-col justify-between p-10">
-      <div className="flex items-center gap-4">
-        <div className="h-px w-6 bg-[#FAFAFA]/12" />
+    <div className="relative w-full h-full overflow-hidden bg-[#161616]">
+      <Image
+        src={creditsImage}
+        alt={page.headline ?? "Credits page"}
+        fill
+        className="object-cover grayscale"
+        sizes="50vw"
+      />
+      <div className="absolute inset-0 bg-[#161616]/62" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/35 via-black/20 to-black/65" />
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-10">
         <span
-          className="text-[#FAFAFA]/25 text-[8px] tracking-[0.5em] uppercase"
+          className="text-[#FAFAFA]/55 text-[8px] tracking-[0.5em] uppercase"
           style={{ fontFamily: "var(--font-body)" }}
         >
           {page.tag}
         </span>
-      </div>
 
-      <div className="flex flex-col gap-8">
         <h3
-          className="text-[#FAFAFA] font-black uppercase leading-none"
+          className="text-[#FAFAFA] font-black uppercase leading-none mt-4"
           style={{ fontFamily: "var(--font-display)", fontSize: "clamp(30px,4vw,44px)" }}
         >
           {page.headline}
         </h3>
-        <div className="flex flex-col">
+
+        <div className="w-full max-w-md mt-6">
           {page.items?.map((item, i) => (
             <div
               key={i}
-              className="flex justify-between items-center py-[10px] border-b border-[#FAFAFA]/8"
+              className="flex justify-between items-center py-2.5 border-b border-[#FAFAFA]/20"
             >
               <span
-                className="text-[#FAFAFA]/25 text-[8px] tracking-[0.4em] uppercase"
+                className="text-[#FAFAFA]/55 text-[8px] tracking-[0.35em] uppercase"
                 style={{ fontFamily: "var(--font-body)" }}
               >
                 {item.label}
               </span>
               <span
-                className="text-[#FAFAFA]/60 text-[10px] tracking-[0.12em]"
+                className="text-[#FAFAFA]/85 text-[10px] tracking-[0.12em]"
                 style={{ fontFamily: "var(--font-body)" }}
               >
                 {item.value}
@@ -350,7 +407,7 @@ function CreditsPage({ page }: { page: SpreadPage }) {
       </div>
 
       <span
-        className="text-[#FAFAFA]/10 text-[8px] tracking-[0.35em]"
+        className="absolute right-8 bottom-7 text-[#FAFAFA]/55 text-[8px] tracking-[0.35em]"
         style={{ fontFamily: "var(--font-body)" }}
       >
         {String(page.pageNumber ?? "").padStart(2, "0")}
@@ -374,54 +431,51 @@ function Page({ page }: { page: SpreadPage }) {
 
 export default function LookbookScroll() {
   const sectionRef  = useRef<HTMLDivElement>(null);
-  const pagesRef    = useRef<(HTMLDivElement | null)[]>([]);
-  const indexRef    = useRef<HTMLSpanElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
 
   const total = SPREADS.length;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!sectionRef.current) return;
 
-    const pages = pagesRef.current.filter(Boolean) as HTMLDivElement[];
+    const ctx = gsap.context(() => {
+      const pages = gsap.utils.toArray<HTMLDivElement>(".lookbook-spread");
+      if (!pages.length) return;
 
-    // Stack all spreads; higher z-index = later spread (sits on top)
-    gsap.set(pages, {
-      rotateY: 0,
-      transformOrigin: "left center",
-      zIndex: (i) => total - i,
-    });
+      // Stack all spreads; higher z-index = later spread (sits on top)
+      gsap.set(pages, {
+        rotateY: 0,
+        transformOrigin: "left center",
+        zIndex: (i) => total - i,
+      });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        pin: true,
-        scrub: 0.9,
-        start: "top top",
-        end: `+=${total * 1000}`,
-        onUpdate(self) {
-          const idx = Math.min(Math.floor(self.progress * total), total - 1);
-          if (indexRef.current) {
-            indexRef.current.textContent = String(idx + 1).padStart(2, "0");
-          }
-          if (progressRef.current) {
-            progressRef.current.style.width = `${self.progress * 100}%`;
-          }
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          pin: true,
+          pinSpacing: true,
+          scrub: 0.9,
+          start: "top top",
+          end: `+=${total * 1200}`,
+          invalidateOnRefresh: true,
+          onUpdate(self) {
+            if (progressRef.current) {
+              progressRef.current.style.width = `${self.progress * 100}%`;
+            }
+          },
         },
-      },
-    });
+      });
 
-    // Each step: current top spread rotates away to reveal next
-    pages.forEach((page, i) => {
-      tl.to(
-        page,
-        { rotateY: -180, ease: "power2.inOut", duration: 1 },
-        i // sequence them one after another
-      );
-    });
+      // Each step: current top spread rotates away to reveal next.
+      pages.forEach((page, i) => {
+        tl.to(page, { rotateY: -180, ease: "power2.inOut", duration: 1 }, i);
+      });
+
+      ScrollTrigger.refresh();
+    }, sectionRef);
 
     return () => {
-      ScrollTrigger.getAll().forEach((st) => st.kill());
+      ctx.revert();
     };
   }, [total]);
 
@@ -429,29 +483,10 @@ export default function LookbookScroll() {
     <section
       ref={sectionRef}
       className="relative w-full h-screen flex flex-col overflow-hidden"
-      style={{ background: "#0a0a0a" }}
+      style={{ background: "#161616" }}
     >
       {/* ── Top bar ─────────────────────────────────────────────── */}
-      <div
-        className="flex items-center justify-between px-10 py-5 flex-shrink-0"
-        style={{ borderBottom: "1px solid rgba(250,250,250,0.06)" }}
-      >
-        <span
-          className="text-[#FAFAFA] text-[9px] tracking-[0.55em] uppercase"
-          style={{ fontFamily: "var(--font-body)" }}
-        >
-          YORE — SS26 Lookbook
-        </span>
-
-        <div
-          className="flex items-center gap-2 text-[9px] tracking-[0.3em]"
-          style={{ fontFamily: "var(--font-body)" }}
-        >
-          <span ref={indexRef} className="text-[#FAFAFA]">01</span>
-          <span className="text-[#FAFAFA]/20">/</span>
-          <span className="text-[#FAFAFA]/25">{String(total).padStart(2, "0")}</span>
-        </div>
-      </div>
+    
 
       {/* ── Progress ────────────────────────────────────────────── */}
       <div className="h-px w-full flex-shrink-0" style={{ background: "rgba(250,250,250,0.06)" }}>
@@ -468,8 +503,8 @@ export default function LookbookScroll() {
         <div
           className="relative"
           style={{
-            width: "min(900px, 88vw)",
-            height: "min(560px, 72vh)",
+            width: "50vw",
+            height: "50vh",
             perspective: "2000px",
           }}
         >
@@ -495,8 +530,7 @@ export default function LookbookScroll() {
             {SPREADS.map((spread, i) => (
               <div
                 key={spread.id}
-                ref={(el) => { pagesRef.current[i] = el; }}
-                className="absolute inset-0 flex"
+                className="lookbook-spread absolute inset-0 flex"
                 style={{
                   transformStyle: "preserve-3d",
                   backfaceVisibility: "hidden",
@@ -541,51 +575,12 @@ export default function LookbookScroll() {
             className="absolute -bottom-14 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
             style={{ animation: "hintFade 1s ease 3.5s forwards" }}
           >
-            <svg width="14" height="22" viewBox="0 0 14 22" fill="none" style={{ opacity: 0.22 }}>
-              <rect x="1" y="1" width="12" height="20" rx="6" stroke="#FAFAFA" strokeWidth="1" />
-              <rect
-                x="6" y="4" width="2" height="5" rx="1" fill="#FAFAFA"
-                style={{ animation: "dotBounce 1.3s ease-in-out infinite" }}
-              />
-            </svg>
-            <span
-              className="text-[#FAFAFA]/20 text-[7px] tracking-[0.5em] uppercase"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              Scroll
-            </span>
           </div>
         </div>
       </div>
 
       {/* ── Bottom bar ──────────────────────────────────────────── */}
-      <div
-        className="flex items-center justify-between px-10 py-4 flex-shrink-0"
-        style={{ borderTop: "1px solid rgba(250,250,250,0.06)" }}
-      >
-        <span
-          className="text-[#FAFAFA]/18 text-[8px] tracking-[0.45em] uppercase"
-          style={{ fontFamily: "var(--font-body)" }}
-        >
-          Scroll to turn pages
-        </span>
-        <span
-          className="text-[#FAFAFA]/18 text-[8px] tracking-[0.45em] uppercase"
-          style={{ fontFamily: "var(--font-body)" }}
-        >
-          yore.sk
-        </span>
-      </div>
-
-      <style>{`
-        @keyframes hintFade {
-          to { opacity: 0; }
-        }
-        @keyframes dotBounce {
-          0%, 100% { transform: translateY(0); }
-          50%       { transform: translateY(5px); }
-        }
-      `}</style>
+      
     </section>
   );
 }

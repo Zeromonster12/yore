@@ -64,7 +64,7 @@ export default function PageLoader() {
   // ── Password gate ──────────────────────────────────────────────
   if (!unlocked) {
     return (
-      <div className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center gap-8">
+      <div className="fixed inset-0 z-9999 bg-[#161616] flex flex-col items-center justify-center gap-8">
         <Image
           src="/YORELOGO.png"
           alt="YORE"
@@ -74,7 +74,7 @@ export default function PageLoader() {
           priority
         />
         <p
-          className="text-white/20 text-[9px] tracking-[0.55em] uppercase"
+          className="text-[#FAFAFA]/20 text-[9px] tracking-[0.55em] uppercase"
           style={{ fontFamily: "var(--font-body), sans-serif" }}
         >
           April — SS26
@@ -96,7 +96,7 @@ export default function PageLoader() {
             }}
             onKeyDown={(e) => e.key === "Enter" && attempt()}
             placeholder="Enter password"
-            className="w-full bg-transparent border border-white/20 focus:border-white/50 outline-none text-white text-[11px] tracking-[0.3em] uppercase text-center py-3 px-4 placeholder:text-white/20 transition-colors duration-300"
+            className="w-full bg-transparent border border-[#FAFAFA]/20 focus:border-[#FAFAFA]/50 outline-none text-[#FAFAFA] text-[11px] tracking-[0.3em] uppercase text-center py-3 px-4 placeholder:text-[#FAFAFA]/20 transition-colors duration-300"
             style={{ fontFamily: "var(--font-body), sans-serif" }}
             autoComplete="off"
           />
@@ -110,7 +110,7 @@ export default function PageLoader() {
           )}
           <button
             onClick={attempt}
-            className="w-full border border-white/20 hover:border-white/50 text-white/40 hover:text-white text-[9px] tracking-[0.45em] uppercase py-3 transition-all duration-300"
+            className="w-full border border-[#FAFAFA]/20 hover:border-[#FAFAFA]/50 text-[#FAFAFA]/40 hover:text-[#FAFAFA] text-[9px] tracking-[0.45em] uppercase py-3 transition-all duration-300"
             style={{ fontFamily: "var(--font-body), sans-serif" }}
           >
             Enter
@@ -133,7 +133,7 @@ export default function PageLoader() {
   // ── Loading screen ─────────────────────────────────────────────
   return (
     <div
-      className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center"
+      className="fixed inset-0 z-9999 bg-[#161616] flex flex-col items-center justify-center"
       style={{
         opacity: hiding ? 0 : 1,
         transition: hiding
@@ -164,7 +164,7 @@ export default function PageLoader() {
 
       {/* Season label */}
       <p
-        className="text-white/20 text-[9px] tracking-[0.55em] uppercase mt-5 mb-12"
+        className="text-[#FAFAFA]/20 text-[9px] tracking-[0.55em] uppercase mt-5 mb-12"
         style={{
           fontFamily: "var(--font-body), sans-serif",
           opacity: hiding ? 0 : 1,
@@ -176,14 +176,14 @@ export default function PageLoader() {
 
       {/* Progress bar */}
       <div
-        className="w-32 h-px bg-white/10 overflow-hidden"
+        className="w-32 h-px bg-[#FAFAFA]/10 overflow-hidden"
         style={{
           opacity: hiding ? 0 : 1,
           transition: hiding ? "opacity 0.4s ease" : "none",
         }}
       >
         <div
-          className="h-full bg-white"
+          className="h-full bg-[#FAFAFA]"
           style={{
             width: `${progress}%`,
             transition: "width 0.05s linear",
@@ -193,7 +193,7 @@ export default function PageLoader() {
 
       {/* Counter */}
       <span
-        className="text-white/15 text-[9px] tracking-[0.3em] mt-3"
+        className="text-[#FAFAFA]/15 text-[9px] tracking-[0.3em] mt-3"
         style={{
           fontFamily: "var(--font-body), sans-serif",
           opacity: hiding ? 0 : 1,
