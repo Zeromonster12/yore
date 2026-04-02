@@ -581,8 +581,8 @@ export default function LookbookScroll() {
     return () => ctx.revert();
   }, [total]);
 
-  const BOOK_W = "min(860px, 82vw)";
-  const BOOK_H = "min(520px, 65vh)";
+  const BOOK_W = "50vw";
+  const BOOK_H = "50vh";
 
   return (
     <section
