@@ -1,11 +1,18 @@
 "use client";
 import { useRef, Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, Environment, Center } from "@react-three/drei";
 import * as THREE from "three";
 
 function LogoModel() {
+  const groupRef = useRef<THREE.Group>(null);
   const { scene } = useGLTF("/yore%20logo.glb");
+
+  useFrame((state, delta) => {
+    if (!groupRef.current) return;
+    groupRef.current.rotation.y += delta * 0.7;
+    groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.5) * 0.06;
+  });
 
   scene.traverse((child) => {
     if ((child as THREE.Mesh).isMesh) {
@@ -18,7 +25,11 @@ function LogoModel() {
     }
   });
 
-  return <primitive object={scene} />;
+  return (
+    <group ref={groupRef}>
+      <primitive object={scene} />
+    </group>
+  );
 }
 
 export default function Logo3D() {

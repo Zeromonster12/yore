@@ -156,11 +156,11 @@ function CoverPage({ page }: { page: SpreadPage }) {
         src={coverImage}
         alt={page.headline ?? "Cover image"}
         fill
-        className="object-cover grayscale"
+        className="object-cover"
         sizes="50vw"
         priority
       />
-      <div className="absolute inset-0 bg-[#161616]/55" />
+      <div className="absolute inset-0 bg-[#161616]/10" />
       <div className="absolute inset-0 bg-linear-to-b from-black/35 via-black/20 to-black/60" />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-10">
@@ -199,10 +199,10 @@ function EditorialPage({ page }: { page: SpreadPage }) {
         src={editorialImage}
         alt={page.headline ?? "Editorial image"}
         fill
-        className="object-cover grayscale"
+        className="object-cover"
         sizes="50vw"
       />
-      <div className="absolute inset-0 bg-[#161616]/52" />
+      <div className="absolute inset-0 bg-[#161616]/10" />
       <div className="absolute inset-0 bg-linear-to-b from-black/35 via-black/20 to-black/55" />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-10">
@@ -249,10 +249,10 @@ function PhotoPage({ page }: { page: SpreadPage }) {
         src={photoImage}
         alt={page.headline ?? "Photo page"}
         fill
-        className="object-cover grayscale"
+        className="object-cover"
         sizes="50vw"
       />
-      <div className="absolute inset-0 bg-[#161616]/52" />
+      <div className="absolute inset-0 bg-[#161616]/10" />
       <div className="absolute inset-0 bg-linear-to-b from-black/35 via-black/20 to-black/55" />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-10">
@@ -291,10 +291,10 @@ function ProductPage({ page }: { page: SpreadPage }) {
         src={productImage}
         alt={page.headline ?? "Product page"}
         fill
-        className="object-cover grayscale"
+        className="object-cover"
         sizes="50vw"
       />
-      <div className="absolute inset-0 bg-[#161616]/58" />
+      <div className="absolute inset-0 bg-[#161616]/10" />
       <div className="absolute inset-0 bg-linear-to-b from-black/35 via-black/20 to-black/60" />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-10">
@@ -362,10 +362,10 @@ function CreditsPage({ page }: { page: SpreadPage }) {
         src={creditsImage}
         alt={page.headline ?? "Credits page"}
         fill
-        className="object-cover grayscale"
+        className="object-cover"
         sizes="50vw"
       />
-      <div className="absolute inset-0 bg-[#161616]/62" />
+      <div className="absolute inset-0 bg-[#161616]/10" />
       <div className="absolute inset-0 bg-linear-to-b from-black/35 via-black/20 to-black/65" />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 md:px-10">
@@ -432,6 +432,7 @@ function Page({ page }: { page: SpreadPage }) {
 export default function LookbookScroll() {
   const sectionRef  = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const shadowRef = useRef<HTMLDivElement>(null);
 
   const total = SPREADS.length;
 
@@ -461,6 +462,14 @@ export default function LookbookScroll() {
           onUpdate(self) {
             if (progressRef.current) {
               progressRef.current.style.width = `${self.progress * 100}%`;
+            }
+            if (shadowRef.current) {
+              const fadeStart = 0.86;
+              const fadeProgress = Math.min(
+                1,
+                Math.max(0, (self.progress - fadeStart) / (1 - fadeStart)),
+              );
+              shadowRef.current.style.opacity = `${1 - fadeProgress}`;
             }
           },
         },
@@ -510,6 +519,7 @@ export default function LookbookScroll() {
         >
           {/* Soft shadow beneath book */}
           <div
+            ref={shadowRef}
             className="absolute pointer-events-none"
             style={{
               bottom: "-20px",
@@ -519,6 +529,7 @@ export default function LookbookScroll() {
               background: "rgba(0,0,0,0.55)",
               filter: "blur(22px)",
               borderRadius: "50%",
+              opacity: 1,
             }}
           />
 
@@ -561,10 +572,7 @@ export default function LookbookScroll() {
                 {/* Centre crease gradient */}
                 <div
                   className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background:
-                      "linear-gradient(to right, rgba(0,0,0,0) 46%, rgba(0,0,0,0.10) 50%, rgba(0,0,0,0) 54%)",
-                  }}
+                  
                 />
               </div>
             ))}

@@ -73,12 +73,6 @@ export default function PageLoader() {
           className="invert brightness-200 mb-2"
           priority
         />
-        <p
-          className="text-[#FAFAFA]/20 text-[9px] tracking-[0.55em] uppercase"
-          style={{ fontFamily: "var(--font-body), sans-serif" }}
-        >
-          April — SS26
-        </p>
 
         <div
           className="flex flex-col items-center gap-3 w-64"
@@ -163,20 +157,11 @@ export default function PageLoader() {
       </div>
 
       {/* Season label */}
-      <p
-        className="text-[#FAFAFA]/20 text-[9px] tracking-[0.55em] uppercase mt-5 mb-12"
-        style={{
-          fontFamily: "var(--font-body), sans-serif",
-          opacity: hiding ? 0 : 1,
-          transition: hiding ? "opacity 0.5s ease" : "none",
-        }}
-      >
-        April — SS26
-      </p>
+
 
       {/* Progress bar */}
       <div
-        className="w-32 h-px bg-[#FAFAFA]/10 overflow-hidden"
+        className="w-32 h-px bg-[#FAFAFA]/10 overflow-hidden !mt-5"
         style={{
           opacity: hiding ? 0 : 1,
           transition: hiding ? "opacity 0.4s ease" : "none",

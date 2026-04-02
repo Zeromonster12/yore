@@ -176,10 +176,32 @@ export default function Home() {
           priority
         />
 
+        <ul className="absolute left-1/2 -translate-x-1/2 flex items-center gap-8">
+          <li>
+            <a
+              href="#home"
+              className="text-[#FAFAFA]/70 hover:text-[#FAFAFA] text-[10px] tracking-[0.35em] uppercase transition-colors duration-300"
+              style={{ fontFamily: "var(--font-body), sans-serif" }}
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              href="/gallery"
+              className="text-[#FAFAFA]/70 hover:text-[#FAFAFA] text-[10px] tracking-[0.35em] uppercase transition-colors duration-300"
+              style={{ fontFamily: "var(--font-body), sans-serif" }}
+            >
+              Gallery
+            </a>
+          </li>
+        </ul>
+
       </nav>
 
       {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section
+        id="home"
         ref={heroRef}
         className="relative h-screen overflow-hidden flex items-center justify-center"
       >
@@ -273,7 +295,9 @@ export default function Home() {
         </div>
       </section>
 
-      <LookbookScroll />
+      <section id="gallery">
+        <LookbookScroll />
+      </section>
 
       {/* â”€â”€ Section heading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       
