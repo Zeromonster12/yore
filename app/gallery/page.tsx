@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 export const dynamic = "force-static";
 
@@ -61,38 +60,46 @@ export default function GalleryPage() {
 
 	return (
 		<main className="min-h-screen bg-[#161616] text-[#FAFAFA] overflow-x-hidden">
-			<nav className="sticky top-0 z-50 bg-[#161616]/90 backdrop-blur-sm border-b border-[#FAFAFA]/10">
-				<div className="max-w-7xl mx-auto px-6 md:px-10 py-5 flex items-center justify-between">
-					<Link href="/" className="text-[#FAFAFA] text-[12px] tracking-[0.35em] uppercase">
-						Yore
-					</Link>
-					<div className="flex items-center gap-8">
-						<Link
+			<nav
+				className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-5"
+				style={{ marginTop: "1rem", marginLeft: "1rem" }}
+			>
+				<a href="/" aria-label="Go to home">
+					<Image
+						src="/yoremini.png"
+						alt="YORE"
+						width={48}
+						height={28}
+						className="invert brightness-200"
+						priority
+					/>
+				</a>
+
+				<ul className="absolute left-1/2 -translate-x-1/2 flex items-center gap-8">
+					<li>
+						<a
 							href="/"
 							className="text-[#FAFAFA]/70 hover:text-[#FAFAFA] text-[10px] tracking-[0.35em] uppercase transition-colors duration-300"
 							style={{ fontFamily: "var(--font-body), sans-serif" }}
 						>
 							Home
-						</Link>
-						<Link
+						</a>
+					</li>
+					<li>
+						<a
 							href="/gallery"
-							className="text-[#FAFAFA] text-[10px] tracking-[0.35em] uppercase"
+							className="text-[#FAFAFA]/70 hover:text-[#FAFAFA] text-[10px] tracking-[0.35em] uppercase transition-colors duration-300"
 							style={{ fontFamily: "var(--font-body), sans-serif" }}
 						>
 							Gallery
-						</Link>
-					</div>
-				</div>
+						</a>
+					</li>
+				</ul>
 			</nav>
 
-			<section className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-14">
-				<h1
-					className="text-[#FAFAFA] text-3xl md:text-4xl uppercase tracking-[0.12em] mb-8 md:mb-10"
-					style={{ fontFamily: "var(--font-display), sans-serif" }}
-				>
-					Gallery
-				</h1>
+			<div aria-hidden="true" className="h-28 md:h-32" />
 
+			<section className="px-4 md:px-8 pt-8 pb-14 flex justify-center">
 				{images.length === 0 ? (
 					<p
 						className="text-[#FAFAFA]/60 text-sm"
@@ -101,7 +108,7 @@ export default function GalleryPage() {
 						No images found in public/photos.
 					</p>
 				) : (
-					<div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+					<div className="w-full max-w-7xl grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
 						{images.map((imagePath, index) => (
 							<article key={imagePath} className="relative rounded-sm overflow-hidden bg-[#1f1f1f] aspect-3/4">
 								<Image
@@ -116,6 +123,58 @@ export default function GalleryPage() {
 					</div>
 				)}
 			</section>
+
+			<section className="py-20 px-6 md:px-20 flex flex-col items-center text-center gap-8 !mt-10">
+				<Image
+					src="/postavygallery.png"
+					alt="BeYORE"
+					width={900}
+					height={300}
+					className="w-[70vw] md:w-[40vw] h-auto select-none"
+				/>
+			</section>
+
+			<footer
+				className="mt-12 border-white/20 py-14 px-6 md:px-10 flex flex-col items-center gap-8 md:flex-row md:justify-between"
+				style={{
+					paddingTop: "2.5rem",
+					paddingBottom: "2.5rem",
+					paddingLeft: "1rem",
+					paddingRight: "1rem",
+				}}
+			>
+				<Image
+					src="/YORELOGO.png"
+					alt="YORE"
+					width={68}
+					height={26}
+					className="invert opacity-80"
+				/>
+				<div className="flex items-center gap-6 md:gap-8">
+					<a
+						href="https://www.instagram.com/yore.form/"
+						className="text-[#FAFAFA]/40 text-[10px] tracking-[0.35em] uppercase font-medium hover:text-[#FAFAFA]/80 transition-colors"
+						style={{ fontFamily: "var(--font-body), sans-serif" }}
+					>
+						Instagram
+					</a>
+					<a
+						href="https://www.flace.sk/yore/"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="text-[#FAFAFA]/40 text-[10px] tracking-[0.35em] uppercase font-medium hover:text-[#FAFAFA] transition-colors"
+						style={{ fontFamily: "var(--font-body), sans-serif" }}
+					>
+						GetYORE drip
+					</a>
+				</div>
+				<span
+					className="text-[#FAFAFA]/40 text-[10px] tracking-[0.2em] font-medium"
+					style={{ fontFamily: "var(--font-body), sans-serif" }}
+				>
+					© 2026 YORE
+				</span>
+			</footer>
 		</main>
 	);
 }

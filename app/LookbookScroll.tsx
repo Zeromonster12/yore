@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -159,17 +159,23 @@ const SPREADS: Spread[] = [
 // Tab colours matching the reference image (yellow, lavender, pink, green, coral, pink-hot, yellow-warm)
 const TAB_COLORS = ["#F5E642", "#C8B8E8", "#F472B6", "#86EFAC", "#FB923C", "#F9A8D4", "#FDE68A"];
 
-function EdgeTab({ index }: { index: number }) {
+function EdgeTab({ index, onClick }: { index: number; onClick: () => void }) {
   const tabColor = TAB_COLORS[index % TAB_COLORS.length];
   const topOffsetPx = 48 + index * 28;
 
   return (
-    <div
-      className="absolute pointer-events-none"
+    <button
+      type="button"
+      aria-label={`Go to lookbook tab ${index + 1}`}
+      onClick={onClick}
+      className="absolute cursor-pointer"
       style={{
         right: "-28px",
         top: `${topOffsetPx}px`,
         zIndex: 201,
+        background: "transparent",
+        border: "none",
+        padding: 0,
       }}
     >
       <div
@@ -182,7 +188,7 @@ function EdgeTab({ index }: { index: number }) {
           opacity: 0.88,
         }}
       />
-    </div>
+    </button>
   );
 }
 
@@ -533,11 +539,100 @@ function NotebookShell({
   );
 }
 
+function TransparentPen({ bookH }: { bookH: string }) {
+  const [processedSrc, setProcessedSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isActive = true;
+    const img = new window.Image();
+    img.src = "/pen.png";
+
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
+      if (!ctx) return;
+
+      ctx.drawImage(img, 0, 0);
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+
+      // Estimate the background from edge pixels and remove similar tones.
+      const samples = [
+        [0, 0],
+        [canvas.width - 1, 0],
+        [0, canvas.height - 1],
+        [canvas.width - 1, canvas.height - 1],
+        [Math.floor(canvas.width / 2), 0],
+        [Math.floor(canvas.width / 2), canvas.height - 1],
+      ] as const;
+
+      let sumR = 0;
+      let sumG = 0;
+      let sumB = 0;
+
+      samples.forEach(([x, y]) => {
+        const idx = (y * canvas.width + x) * 4;
+        sumR += data[idx];
+        sumG += data[idx + 1];
+        sumB += data[idx + 2];
+      });
+
+      const bgR = sumR / samples.length;
+      const bgG = sumG / samples.length;
+      const bgB = sumB / samples.length;
+      const cutStart = 24;
+      const cutEnd = 58;
+
+      for (let i = 0; i < data.length; i += 4) {
+        const dr = data[i] - bgR;
+        const dg = data[i + 1] - bgG;
+        const db = data[i + 2] - bgB;
+        const distance = Math.sqrt(dr * dr + dg * dg + db * db);
+
+        if (distance <= cutStart) {
+          data[i + 3] = 0;
+        } else if (distance < cutEnd) {
+          const alphaScale = (distance - cutStart) / (cutEnd - cutStart);
+          data[i + 3] = Math.round(data[i + 3] * alphaScale);
+        }
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+
+      if (isActive) {
+        setProcessedSrc(canvas.toDataURL("image/png"));
+      }
+    };
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
+  if (!processedSrc) return null;
+
+  return (
+    <Image
+      src={processedSrc}
+      alt="Pen"
+      width={84}
+      height={420}
+      unoptimized
+      className="absolute left-full top-1/2 !ml-12 w-auto -translate-y-1/2 select-none pointer-events-none opacity-80"
+      style={{ height: bookH }}
+    />
+  );
+}
+
 // ─── Main export ──────────────────────────────────────────────────────────────
 
 export default function LookbookScroll() {
   const sectionRef  = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
 
   const total = SPREADS.length;
 
@@ -571,6 +666,8 @@ export default function LookbookScroll() {
         },
       });
 
+      scrollTriggerRef.current = tl.scrollTrigger ?? null;
+
       pages.forEach((page, i) => {
         tl.to(page, { rotateY: -180, ease: "power2.inOut", duration: 1 }, i);
       });
@@ -580,6 +677,17 @@ export default function LookbookScroll() {
 
     return () => ctx.revert();
   }, [total]);
+
+  const jumpToSpread = (spreadIndex: number) => {
+    const st = scrollTriggerRef.current;
+    if (!st) return;
+
+    const clampedIndex = Math.max(0, Math.min(spreadIndex, total - 1));
+    const progress = clampedIndex / total;
+    const targetScroll = st.start + (st.end - st.start) * progress;
+
+    window.scrollTo({ top: targetScroll, behavior: "smooth" });
+  };
 
   const BOOK_W = "50vw";
   const BOOK_H = "50vh";
@@ -601,97 +709,101 @@ export default function LookbookScroll() {
 
       {/* ── Centre stage ─────────────────────────────────────── */}
       <div className="flex-1 flex items-center justify-center">
-        <NotebookShell bookW={BOOK_W} bookH={BOOK_H}>
-          {/* preserve-3d so spread children flip in 3D */}
-          <div
-            className="relative w-full h-full"
-            style={{
-              transformStyle: "preserve-3d",
-              backgroundColor: "#1a1a1a",
-              backgroundImage:
-                "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.6) 100%), linear-gradient(rgba(22,22,22,0.45), rgba(22,22,22,0.45)), url('/lookbookcover.png')",
-              backgroundSize: "100% 100%, 100% 100%, cover",
-              backgroundPosition: "center, center, center",
-              backgroundRepeat: "no-repeat",
-            }}
-          >
-            {SPREADS.map((spread, i) => {
-              const isSinglePhotoSpread = i === 0 || i === total - 1;
-              const singleSpreadPage = spread.left.image ? spread.left : spread.right;
+        <div className="relative">
+          <NotebookShell bookW={BOOK_W} bookH={BOOK_H}>
+            {/* preserve-3d so spread children flip in 3D */}
+            <div
+              className="relative w-full h-full"
+              style={{
+                transformStyle: "preserve-3d",
+                backgroundColor: "#1a1a1a",
+                backgroundImage:
+                  "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.6) 100%), linear-gradient(rgba(22,22,22,0.45), rgba(22,22,22,0.45)), url('/lookbookbackcover.png')",
+                backgroundSize: "100% 100%, 100% 100%, cover",
+                backgroundPosition: "center, center, center",
+                backgroundRepeat: "no-repeat",
+              }}
+            >
+              {SPREADS.map((spread, i) => {
+                const isSinglePhotoSpread = i === 0 || i === total - 1;
+                const singleSpreadPage = spread.left.image ? spread.left : spread.right;
 
-              return (
-                <div
-                  key={spread.id}
-                  className="lookbook-spread absolute inset-0 flex"
-                  style={{
-                    transformStyle: "preserve-3d",
-                    backfaceVisibility: "hidden",
-                    background: "#101010",
-                    opacity: 1,
-                    zIndex: 30 + total - i,
-                    // crisp page-edge shadow
-                    boxShadow:
-                      "4px 0 20px rgba(0,0,0,0.5), -1px 0 6px rgba(0,0,0,0.25)",
-                  }}
-                >
-                  {/* Border/frame tied to the flipping spread */}
+                return (
                   <div
-                    className="absolute pointer-events-none"
+                    key={spread.id}
+                    className="lookbook-spread absolute inset-0 flex"
                     style={{
-                      inset: "-4px -5px -4px -5px",
-                      border: "5px solid #1a1a1a",
-                      borderRadius: "2px 4px 4px 2px",
-                      zIndex: 6,
-                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
+                      transformStyle: "preserve-3d",
+                      backfaceVisibility: "hidden",
+                      background: "#101010",
+                      opacity: 1,
+                      zIndex: 30 + total - i,
+                      // crisp page-edge shadow
+                      boxShadow:
+                        "4px 0 20px rgba(0,0,0,0.5), -1px 0 6px rgba(0,0,0,0.25)",
                     }}
-                  />
-                  <EdgeTab index={i} />
-                  {isSinglePhotoSpread ? (
-                      <div className="relative w-full h-full overflow-hidden" style={{ background: "#101010" }}>
-                      <Page page={singleSpreadPage} />
-                    </div>
-                  ) : (
-                    <>
-                      {/* Left page */}
-                      <div
-                        className="relative overflow-hidden"
-                        style={{ flex: 1, borderRight: "1px solid #0a0a0a" }}
-                      >
-                        <Page page={spread.left} />
+                  >
+                    {/* Border/frame tied to the flipping spread */}
+                    <div
+                      className="absolute pointer-events-none"
+                      style={{
+                        inset: "-4px -5px -4px -5px",
+                        border: "5px solid #1a1a1a",
+                        borderRadius: "2px 4px 4px 2px",
+                        zIndex: 6,
+                        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
+                      }}
+                    />
+                    <EdgeTab index={i} onClick={() => jumpToSpread(i)} />
+                    {isSinglePhotoSpread ? (
+                        <div className="relative w-full h-full overflow-hidden" style={{ background: "#101010" }}>
+                        <Page page={singleSpreadPage} />
                       </div>
+                    ) : (
+                      <>
+                        {/* Left page */}
+                        <div
+                          className="relative overflow-hidden"
+                          style={{ flex: 1, borderRight: "1px solid #0a0a0a" }}
+                        >
+                          <Page page={spread.left} />
+                        </div>
 
-                      {/* Spine */}
-                      <div
-                        className="relative flex-shrink-0"
-                        style={{
-                          width: "4px",
-                          background:
-                            "linear-gradient(to right, #080808 0%, #2a2a2a 50%, #080808 100%)",
-                          zIndex: 2,
-                          boxShadow: "0 0 8px rgba(0,0,0,0.6)",
-                        }}
-                      />
+                        {/* Spine */}
+                        <div
+                          className="relative flex-shrink-0"
+                          style={{
+                            width: "4px",
+                            background:
+                              "linear-gradient(to right, #080808 0%, #2a2a2a 50%, #080808 100%)",
+                            zIndex: 2,
+                            boxShadow: "0 0 8px rgba(0,0,0,0.6)",
+                          }}
+                        />
 
-                      {/* Right page */}
-                      <div className="relative overflow-hidden" style={{ flex: 1 }}>
-                        <Page page={spread.right} />
-                      </div>
+                        {/* Right page */}
+                        <div className="relative overflow-hidden" style={{ flex: 1 }}>
+                          <Page page={spread.right} />
+                        </div>
 
-                      {/* Centre crease shadow */}
-                      <div
-                        className="absolute inset-0 pointer-events-none"
-                        style={{
-                          background:
-                            "linear-gradient(to right, rgba(0,0,0,0) 44%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0) 56%)",
-                        }}
-                      />
-                    </>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </NotebookShell>
+                        {/* Centre crease shadow */}
+                        <div
+                          className="absolute inset-0 pointer-events-none"
+                          style={{
+                            background:
+                              "linear-gradient(to right, rgba(0,0,0,0) 44%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0) 56%)",
+                          }}
+                        />
+                      </>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </NotebookShell>
+
+          <TransparentPen bookH={BOOK_H} />
+        </div>
       </div>
 
       {/* ── Scroll hint ───────────────────────────────────────── */}
