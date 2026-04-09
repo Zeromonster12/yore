@@ -1,6 +1,7 @@
-import Image from "next/image";
+"use client";
 
-export const dynamic = "force-static";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const GALLERY_IMAGES = [
 	"/photos/YORE%20NITRA/4.png",
@@ -55,8 +56,54 @@ const GALLERY_IMAGES = [
 	"/photos/YORE%20NITRA/uprava4yore.jpg",
 ];
 
+function getTileSizeClasses(index: number) {
+	if (index === 0) {
+		return "col-span-2 row-span-2";
+	}
+
+	const pattern = index % 10;
+
+	if (pattern === 1 || pattern === 6) {
+		return "row-span-1";
+	}
+
+	if (pattern === 3 || pattern === 8) {
+		return "col-span-2 row-span-2";
+	}
+
+	if (pattern === 5) {
+		return "row-span-3";
+	}
+
+	return "row-span-2";
+}
+
 export default function GalleryPage() {
-	const images = GALLERY_IMAGES;
+	const [activeImage, setActiveImage] = useState<string | null>(null);
+	const [heroImage, ...gridImages] = GALLERY_IMAGES;
+
+	useEffect(() => {
+		if (!activeImage) return;
+
+		const previousOverflow = document.body.style.overflow;
+		document.body.style.overflow = "hidden";
+
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") {
+				setActiveImage(null);
+			}
+		};
+
+		window.addEventListener("keydown", onKeyDown);
+
+		return () => {
+			window.removeEventListener("keydown", onKeyDown);
+			document.body.style.overflow = previousOverflow;
+		};
+	}, [activeImage]);
+
+	const openLightbox = (imagePath: string) => setActiveImage(imagePath);
+	const closeLightbox = () => setActiveImage(null);
 
 	return (
 		<main className="min-h-screen bg-[#161616] text-[#FAFAFA] overflow-x-hidden">
@@ -100,7 +147,7 @@ export default function GalleryPage() {
 			<div aria-hidden="true" className="h-28 md:h-32" />
 
 			<section className="px-4 md:px-8 pt-8 pb-14 flex justify-center">
-				{images.length === 0 ? (
+				{GALLERY_IMAGES.length === 0 ? (
 					<p
 						className="text-[#FAFAFA]/60 text-sm"
 						style={{ fontFamily: "var(--font-body), sans-serif" }}
@@ -108,18 +155,45 @@ export default function GalleryPage() {
 						No images found in public/photos.
 					</p>
 				) : (
-					<div className="w-full max-w-7xl grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
-						{images.map((imagePath, index) => (
-							<article key={imagePath} className="relative rounded-sm overflow-hidden bg-[#1f1f1f] aspect-3/4">
+					<div className="w-full max-w-7xl flex flex-col gap-3 md:gap-4">
+						{heroImage && (
+							<button
+								type="button"
+								onClick={() => openLightbox(heroImage)}
+								className="group relative w-full overflow-hidden rounded-sm bg-[#1f1f1f]"
+								style={{ aspectRatio: "21 / 9" }}
+								aria-label="Open featured gallery image"
+							>
 								<Image
-									src={imagePath}
-									alt={`Gallery image ${index + 1}`}
+									src={heroImage}
+									alt="Featured gallery image"
 									fill
-									className="object-cover transition-transform duration-500 hover:scale-[1.03]"
-									sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+									priority
+									className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+									sizes="100vw"
 								/>
-							</article>
-						))}
+							</button>
+						)}
+
+						<div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 grid-flow-dense gap-3 md:gap-4 auto-rows-[110px] md:auto-rows-[130px]">
+							{gridImages.map((imagePath, index) => (
+								<button
+									type="button"
+									key={imagePath}
+									onClick={() => openLightbox(imagePath)}
+									className={`group relative h-full rounded-sm overflow-hidden bg-[#1f1f1f] ${getTileSizeClasses(index)}`}
+									aria-label={`Open gallery image ${index + 2}`}
+								>
+									<Image
+										src={imagePath}
+										alt={`Gallery image ${index + 2}`}
+										fill
+										className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+										sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 34vw"
+									/>
+								</button>
+							))}
+						</div>
 					</div>
 				)}
 			</section>
@@ -175,6 +249,41 @@ export default function GalleryPage() {
 					© 2026 YORE
 				</span>
 			</footer>
+
+			{activeImage && (
+				<div
+					className="fixed inset-0 bg-black/90 flex items-center justify-center p-4 md:p-8"
+					style={{ zIndex: 120 }}
+					onClick={closeLightbox}
+					role="dialog"
+					aria-modal="true"
+					aria-label="Image lightbox"
+				>
+					<button
+						type="button"
+						onClick={closeLightbox}
+						className="absolute top-4 right-4 md:top-6 md:right-6 text-white/85 hover:text-white text-xs tracking-[0.35em] uppercase"
+						style={{ fontFamily: "var(--font-body), sans-serif" }}
+					>
+						Close
+					</button>
+
+					<div
+						className="relative w-full"
+						style={{ maxWidth: "1400px", height: "82vh" }}
+						onClick={(event) => event.stopPropagation()}
+					>
+						<Image
+							src={activeImage}
+							alt="Opened gallery image"
+							fill
+							priority
+							className="object-contain"
+							sizes="100vw"
+						/>
+					</div>
+				</div>
+			)}
 		</main>
 	);
 }
