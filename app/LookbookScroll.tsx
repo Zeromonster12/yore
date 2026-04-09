@@ -33,7 +33,7 @@ const SPREADS: Spread[] = [
     id: 0,
     left: {
       type: "cover",
-      image: "/lookbookcover.png",
+      image: "/notepadfirst.png",
       headline: "",
       sub: "",
     },
@@ -198,7 +198,7 @@ function CoverPage({ page }: { page: SpreadPage }) {
   return (
     <div className="relative w-full h-full overflow-hidden" style={{ background: "#1a1a1a" }}>
       {page.image && (
-        <Image src={page.image} alt="" fill className="object-cover" sizes="50vw" priority />
+        <Image src={page.image} alt="" fill className="object-fill" sizes="50vw" priority />
       )}
       <div className="absolute inset-0" style={{ background: "rgba(22,22,22,0.45)" }} />
       <div
@@ -718,8 +718,8 @@ export default function LookbookScroll() {
                 transformStyle: "preserve-3d",
                 backgroundColor: "#1a1a1a",
                 backgroundImage:
-                  "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.6) 100%), linear-gradient(rgba(22,22,22,0.45), rgba(22,22,22,0.45)), url('/lookbookbackcover.png')",
-                backgroundSize: "100% 100%, 100% 100%, cover",
+                  "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.6) 100%), linear-gradient(rgba(22,22,22,0.45), rgba(22,22,22,0.45)), url('/notepadlast.png')",
+                backgroundSize: "100% 100%, 100% 100%, 100% 100%",
                 backgroundPosition: "center, center, center",
                 backgroundRepeat: "no-repeat",
               }}
