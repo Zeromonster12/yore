@@ -80,7 +80,21 @@ function getTileSizeClasses(index: number) {
 
 export default function GalleryPage() {
 	const [activeImage, setActiveImage] = useState<string | null>(null);
+	const activeImageIndex = activeImage ? GALLERY_IMAGES.indexOf(activeImage) : -1;
 	const [heroImage, ...gridImages] = GALLERY_IMAGES;
+
+	const showPreviousImage = () => {
+		if (activeImageIndex === -1) return;
+		const previousIndex =
+			(activeImageIndex - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
+		setActiveImage(GALLERY_IMAGES[previousIndex]);
+	};
+
+	const showNextImage = () => {
+		if (activeImageIndex === -1) return;
+		const nextIndex = (activeImageIndex + 1) % GALLERY_IMAGES.length;
+		setActiveImage(GALLERY_IMAGES[nextIndex]);
+	};
 
 	useEffect(() => {
 		if (!activeImage) return;
@@ -91,6 +105,33 @@ export default function GalleryPage() {
 		const onKeyDown = (event: KeyboardEvent) => {
 			if (event.key === "Escape") {
 				setActiveImage(null);
+				return;
+			}
+
+			if (event.key === "ArrowLeft") {
+				event.preventDefault();
+				setActiveImage((currentImage) => {
+					if (!currentImage) return null;
+					const currentIndex = GALLERY_IMAGES.indexOf(currentImage);
+					if (currentIndex === -1) return currentImage;
+
+					const previousIndex =
+						(currentIndex - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
+					return GALLERY_IMAGES[previousIndex];
+				});
+				return;
+			}
+
+			if (event.key === "ArrowRight") {
+				event.preventDefault();
+				setActiveImage((currentImage) => {
+					if (!currentImage) return null;
+					const currentIndex = GALLERY_IMAGES.indexOf(currentImage);
+					if (currentIndex === -1) return currentImage;
+
+					const nextIndex = (currentIndex + 1) % GALLERY_IMAGES.length;
+					return GALLERY_IMAGES[nextIndex];
+				});
 			}
 		};
 
@@ -268,6 +309,30 @@ export default function GalleryPage() {
 						Close
 					</button>
 
+					<button
+						type="button"
+						onClick={(event) => {
+							event.stopPropagation();
+							showPreviousImage();
+						}}
+						className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/35 bg-black/30 text-white/90 hover:text-white hover:border-white/60 transition-colors"
+						aria-label="Show previous image"
+					>
+						Prev
+					</button>
+
+					<button
+						type="button"
+						onClick={(event) => {
+							event.stopPropagation();
+							showNextImage();
+						}}
+						className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/35 bg-black/30 text-white/90 hover:text-white hover:border-white/60 transition-colors"
+						aria-label="Show next image"
+					>
+						Next
+					</button>
+
 					<div
 						className="relative w-full"
 						style={{ maxWidth: "1400px", height: "82vh" }}
@@ -281,6 +346,14 @@ export default function GalleryPage() {
 							className="object-contain"
 							sizes="100vw"
 						/>
+						{activeImageIndex >= 0 && (
+							<span
+								className="absolute left-1/2 -translate-x-1/2 bottom-3 md:bottom-4 text-[10px] md:text-xs tracking-[0.25em] uppercase text-white/70"
+								style={{ fontFamily: "var(--font-body), sans-serif" }}
+							>
+								{activeImageIndex + 1} / {GALLERY_IMAGES.length}
+							</span>
+						)}
 					</div>
 				</div>
 			)}

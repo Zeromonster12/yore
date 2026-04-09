@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Barlow_Condensed, DM_Sans } from "next/font/google";
+import CustomCursor from "./components/CustomCursor";
 import "./globals.css";
 
 const barlowCondensed = Barlow_Condensed({
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body
         className={`${barlowCondensed.variable} ${dmSans.variable} antialiased`}
       >
+        <CustomCursor />
         {children}
       </body>
     </html>

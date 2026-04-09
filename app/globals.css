@@ -31,6 +31,55 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body.cursor-custom-enabled,
+body.cursor-custom-enabled a,
+body.cursor-custom-enabled button,
+body.cursor-custom-enabled input,
+body.cursor-custom-enabled textarea,
+body.cursor-custom-enabled select,
+body.cursor-custom-enabled [role="button"],
+body.cursor-custom-enabled label {
+  cursor: none !important;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 10010;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 180ms ease;
+}
+
+.custom-cursor--visible {
+  opacity: 1;
+}
+
+.custom-cursor__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  body.cursor-custom-enabled,
+  body.cursor-custom-enabled a,
+  body.cursor-custom-enabled button,
+  body.cursor-custom-enabled input,
+  body.cursor-custom-enabled textarea,
+  body.cursor-custom-enabled select,
+  body.cursor-custom-enabled [role="button"],
+  body.cursor-custom-enabled label {
+    cursor: auto !important;
+  }
+
+  .custom-cursor {
+    display: none;
+  }
+}
+
 /* Film grain overlay */
 body::after {
   content: "";
