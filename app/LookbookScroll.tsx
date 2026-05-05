@@ -43,8 +43,15 @@ const LOOKBOOK_IMAGES = [
 const pickLookbookImage = (index: number) =>
   LOOKBOOK_IMAGES[index % LOOKBOOK_IMAGES.length];
 
-const SPREADS: Spread[] = Array.from({ length: 6 }, (_, i) => ({
-  id: i,
+const COVER_PAGE: SpreadPage = {
+  type: "cover",
+  image: "/notepadfirst.png",
+  headline: "",
+  sub: "",
+};
+
+const PHOTO_SPREADS: Spread[] = Array.from({ length: 5 }, (_, i) => ({
+  id: i + 1,
   left: {
     type: "photo",
     image: pickLookbookImage(i * 2),
@@ -54,6 +61,15 @@ const SPREADS: Spread[] = Array.from({ length: 6 }, (_, i) => ({
     image: pickLookbookImage(i * 2 + 1),
   },
 }));
+
+const SPREADS: Spread[] = [
+  {
+    id: 0,
+    left: COVER_PAGE,
+    right: COVER_PAGE,
+  },
+  ...PHOTO_SPREADS,
+];
 
 // Tab colours matching the reference image (yellow, lavender, pink, green, coral, pink-hot, yellow-warm)
 const TAB_COLORS = ["#F5E642", "#C8B8E8", "#F472B6", "#86EFAC", "#FB923C", "#F9A8D4", "#FDE68A"];
@@ -598,6 +614,8 @@ export default function LookbookScroll() {
               }}
             >
               {SPREADS.map((spread, i) => {
+                const isCoverSpread = spread.left.type === "cover" && spread.right.type === "cover";
+
                 return (
                   <div
                     key={spread.id}
@@ -625,39 +643,47 @@ export default function LookbookScroll() {
                       }}
                     />
                     <EdgeTab index={i} onClick={() => jumpToSpread(i)} />
-                    {/* Left page */}
-                    <div
-                      className="relative overflow-hidden"
-                      style={{ flex: 1, borderRight: "1px solid #0a0a0a" }}
-                    >
-                      <Page page={spread.left} />
-                    </div>
+                    {isCoverSpread ? (
+                      <div className="relative w-full h-full overflow-hidden" style={{ background: "#101010" }}>
+                        <Page page={spread.left} />
+                      </div>
+                    ) : (
+                      <>
+                        {/* Left page */}
+                        <div
+                          className="relative overflow-hidden"
+                          style={{ flex: 1, borderRight: "1px solid #0a0a0a" }}
+                        >
+                          <Page page={spread.left} />
+                        </div>
 
-                    {/* Spine */}
-                    <div
-                      className="relative flex-shrink-0"
-                      style={{
-                        width: "4px",
-                        background:
-                          "linear-gradient(to right, #080808 0%, #2a2a2a 50%, #080808 100%)",
-                        zIndex: 2,
-                        boxShadow: "0 0 8px rgba(0,0,0,0.6)",
-                      }}
-                    />
+                        {/* Spine */}
+                        <div
+                          className="relative flex-shrink-0"
+                          style={{
+                            width: "4px",
+                            background:
+                              "linear-gradient(to right, #080808 0%, #2a2a2a 50%, #080808 100%)",
+                            zIndex: 2,
+                            boxShadow: "0 0 8px rgba(0,0,0,0.6)",
+                          }}
+                        />
 
-                    {/* Right page */}
-                    <div className="relative overflow-hidden" style={{ flex: 1 }}>
-                      <Page page={spread.right} />
-                    </div>
+                        {/* Right page */}
+                        <div className="relative overflow-hidden" style={{ flex: 1 }}>
+                          <Page page={spread.right} />
+                        </div>
 
-                    {/* Centre crease shadow */}
-                    <div
-                      className="absolute inset-0 pointer-events-none"
-                      style={{
-                        background:
-                          "linear-gradient(to right, rgba(0,0,0,0) 44%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0) 56%)",
-                      }}
-                    />
+                        {/* Centre crease shadow */}
+                        <div
+                          className="absolute inset-0 pointer-events-none"
+                          style={{
+                            background:
+                              "linear-gradient(to right, rgba(0,0,0,0) 44%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0) 56%)",
+                          }}
+                        />
+                      </>
+                    )}
                   </div>
                 );
               })}
