@@ -5,40 +5,54 @@ import PageLoader from "./components/PageLoader";
 import LookbookScroll from "@/components/LookbookScroll";
 
 // â”€â”€â”€ Photo paths â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-const BASE = "/photos/YORE%20NITRA";
-const HERO_BG = `${BASE}/IMG_7099.JPG`;
-const DIVIDER_1 = `${BASE}/IMG_7155.JPG`;
-const DIVIDER_2 = `${BASE}/IMG_7580.JPG`;
+const PHOTOS_NEW = [
+  "/photos_new/709A7535%20copy%202.jpg",
+  "/photos_new/709A7546%20copy.jpg",
+  "/photos_new/709A7560%20copy.jpg",
+  "/photos_new/709A7592%20copy.jpg",
+  "/photos_new/709A7601-2%20copy.jpg",
+  "/photos_new/709A7611%20copy.jpg",
+  "/photos_new/709A7627%20copy.jpg",
+  "/photos_new/709A7667%20copy.jpg",
+  "/photos_new/709A7677-2%20copy.jpg",
+  "/photos_new/POSLEDNNN.jpg",
+];
+
+const pickPhoto = (index: number) => PHOTOS_NEW[index % PHOTOS_NEW.length];
+
+const HERO_BG = pickPhoto(0);
+const DIVIDER_1 = pickPhoto(3);
+const DIVIDER_2 = pickPhoto(6);
 
 const grid1 = [
-  { src: `${BASE}/IMG_7433.JPG`, tall: true },
-  { src: `${BASE}/IMG_7441.JPG`, tall: false, color: true },
-  { src: `${BASE}/IMG_7448.JPG`, tall: false },
-  { src: `${BASE}/IMG_7454.JPG`, tall: true, color: true },
-  { src: `${BASE}/IMG_7464.JPG`, tall: false },
-  { src: `${BASE}/IMG_7468.JPG`, tall: false, color: true },
+  { src: pickPhoto(1), tall: true },
+  { src: pickPhoto(2), tall: false, color: true },
+  { src: pickPhoto(3), tall: false },
+  { src: pickPhoto(4), tall: true, color: true },
+  { src: pickPhoto(5), tall: false },
+  { src: pickPhoto(6), tall: false, color: true },
 ];
 
 const grid2 = [
-  { src: `${BASE}/IMG_7519.JPG` },
-  { src: `${BASE}/IMG_7522.JPG`, color: true },
-  { src: `${BASE}/IMG_7525.JPG` },
-  { src: `${BASE}/IMG_7526.JPG`, color: true },
-  { src: `${BASE}/IMG_7554.JPG` },
-  { src: `${BASE}/IMG_7558.JPG`, color: true },
-  { src: `${BASE}/IMG_7561.JPG` },
-  { src: `${BASE}/IMG_7590.JPG` },
+  { src: pickPhoto(7) },
+  { src: pickPhoto(8), color: true },
+  { src: pickPhoto(9) },
+  { src: pickPhoto(10), color: true },
+  { src: pickPhoto(11) },
+  { src: pickPhoto(12), color: true },
+  { src: pickPhoto(13) },
+  { src: pickPhoto(14) },
 ];
 
 const strip = [
-  `${BASE}/IMG_7607.JPG`,
-  `${BASE}/IMG_7613.JPG`,
-  `${BASE}/IMG_7626.JPG`,
-  `${BASE}/IMG_7659.JPG`,
-  `${BASE}/IMG_7661.JPG`,
-  `${BASE}/deso6.jpg`,
-  `${BASE}/deso7.jpg`,
-  `${BASE}/deso8.jpg`,
+  pickPhoto(15),
+  pickPhoto(16),
+  pickPhoto(17),
+  pickPhoto(18),
+  pickPhoto(19),
+  pickPhoto(20),
+  pickPhoto(21),
+  pickPhoto(22),
 ];
 
 // â”€â”€â”€ Parallax hook â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€

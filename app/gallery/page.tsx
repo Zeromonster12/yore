@@ -4,56 +4,16 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const GALLERY_IMAGES = [
-	"/photos/YORE%20NITRA/4.png",
-	"/photos/YORE%20NITRA/deso6.jpg",
-	"/photos/YORE%20NITRA/deso7.jpg",
-	"/photos/YORE%20NITRA/deso8.jpg",
-	"/photos/YORE%20NITRA/IMG_4941.JPG",
-	"/photos/YORE%20NITRA/IMG_4961.JPG",
-	"/photos/YORE%20NITRA/IMG_6393.JPG",
-	"/photos/YORE%20NITRA/IMG_6421.JPG",
-	"/photos/YORE%20NITRA/IMG_6455.JPG",
-	"/photos/YORE%20NITRA/IMG_6481.JPG",
-	"/photos/YORE%20NITRA/IMG_6495.JPG",
-	"/photos/YORE%20NITRA/IMG_6579.JPG",
-	"/photos/YORE%20NITRA/IMG_6587.JPG",
-	"/photos/YORE%20NITRA/IMG_6599.JPG",
-	"/photos/YORE%20NITRA/IMG_6601.JPG",
-	"/photos/YORE%20NITRA/IMG_6635.JPG",
-	"/photos/YORE%20NITRA/IMG_6932.JPG",
-	"/photos/YORE%20NITRA/IMG_6939.JPG",
-	"/photos/YORE%20NITRA/IMG_6988.JPG",
-	"/photos/YORE%20NITRA/IMG_7016.JPG",
-	"/photos/YORE%20NITRA/IMG_7034.JPG",
-	"/photos/YORE%20NITRA/IMG_7037.JPG",
-	"/photos/YORE%20NITRA/IMG_7099.JPG",
-	"/photos/YORE%20NITRA/IMG_7120.JPG",
-	"/photos/YORE%20NITRA/IMG_7155.JPG",
-	"/photos/YORE%20NITRA/IMG_7433.JPG",
-	"/photos/YORE%20NITRA/IMG_7434.JPG",
-	"/photos/YORE%20NITRA/IMG_7435.JPG",
-	"/photos/YORE%20NITRA/IMG_7441.JPG",
-	"/photos/YORE%20NITRA/IMG_7448.JPG",
-	"/photos/YORE%20NITRA/IMG_7454.JPG",
-	"/photos/YORE%20NITRA/IMG_7464.JPG",
-	"/photos/YORE%20NITRA/IMG_7468.JPG",
-	"/photos/YORE%20NITRA/IMG_7493.JPG",
-	"/photos/YORE%20NITRA/IMG_7519.JPG",
-	"/photos/YORE%20NITRA/IMG_7522.JPG",
-	"/photos/YORE%20NITRA/IMG_7525.JPG",
-	"/photos/YORE%20NITRA/IMG_7526.JPG",
-	"/photos/YORE%20NITRA/IMG_7554.JPG",
-	"/photos/YORE%20NITRA/IMG_7558.JPG",
-	"/photos/YORE%20NITRA/IMG_7561.JPG",
-	"/photos/YORE%20NITRA/IMG_7580.JPG",
-	"/photos/YORE%20NITRA/IMG_7590.JPG",
-	"/photos/YORE%20NITRA/IMG_7594.JPG",
-	"/photos/YORE%20NITRA/IMG_7607.JPG",
-	"/photos/YORE%20NITRA/IMG_7613.JPG",
-	"/photos/YORE%20NITRA/IMG_7626.JPG",
-	"/photos/YORE%20NITRA/IMG_7659.JPG",
-	"/photos/YORE%20NITRA/IMG_7661.JPG",
-	"/photos/YORE%20NITRA/uprava4yore.jpg",
+	"/photos_new/709A7535%20copy%202.jpg",
+	"/photos_new/709A7546%20copy.jpg",
+	"/photos_new/709A7560%20copy.jpg",
+	"/photos_new/709A7592%20copy.jpg",
+	"/photos_new/709A7601-2%20copy.jpg",
+	"/photos_new/709A7611%20copy.jpg",
+	"/photos_new/709A7627%20copy.jpg",
+	"/photos_new/709A7667%20copy.jpg",
+	"/photos_new/709A7677-2%20copy.jpg",
+	"/photos_new/POSLEDNNN.jpg",
 ];
 
 function getTileSizeClasses(index: number) {
@@ -193,7 +153,7 @@ export default function GalleryPage() {
 						className="text-[#FAFAFA]/60 text-sm"
 						style={{ fontFamily: "var(--font-body), sans-serif" }}
 					>
-						No images found in public/photos.
+						No images found in public/photos_new.
 					</p>
 				) : (
 					<div className="w-full max-w-7xl flex flex-col gap-3 md:gap-4">

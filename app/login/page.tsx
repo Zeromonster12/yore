@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const HERO_BG = "/photos/YORE%20NITRA/IMG_7099.JPG";
+const HERO_BG = "/photos_new/709A7535%20copy%202.jpg";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");

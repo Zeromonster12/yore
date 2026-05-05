@@ -27,134 +27,33 @@ interface Spread {
 
 // ─── Lookbook data ─────────────────────────────────────────────────────────────
 
-const SPREADS: Spread[] = [
-  // Spread 0 — the physical book cover (shown before any flip)
-  {
-    id: 0,
-    left: {
-      type: "cover",
-      image: "/notepadfirst.png",
-      headline: "",
-      sub: "",
-    },
-    right: {
-      type: "editorial",
-      image: "/photos/YORE NITRA/IMG_7099.JPG",
-      tag: "Introduction",
-      headline: "Raw terrain.\nNew silhouettes.",
-      sub: "Spring/Summer 2026 is an ode to negative space — utilitarian cuts stripped to their architecture, worn against Slovak concrete and open field.",
-      pageNumber: 3,
-    },
-  },
-  {
-    id: 1,
-    left: {
-      type: "photo",
-      image: "/photos/YORE NITRA/IMG_7099.JPG",
-      tag: "Look 01",
-      headline: "Field Jacket",
-      pageNumber: 4,
-    },
-    right: {
-      type: "product",
-      tag: "SS26 — Outerwear",
-      headline: "Field Jacket",
-      sub: "Washed canvas, dropped shoulder, concealed placket.",
-      items: [
-        { label: "Ref.",   value: "YR-OW-001"          },
-        { label: "Colour", value: "Stone / Obsidian"   },
-        { label: "Fabric", value: "100% Cotton Canvas" },
-        { label: "Fit",    value: "Oversized"           },
-        { label: "Price",  value: "€220"                },
-      ],
-      pageNumber: 5,
-    },
-  },
-  {
-    id: 2,
-    left: {
-      type: "product",
-      tag: "SS26 — Bottoms",
-      headline: "Cargo Trousers",
-      sub: "Six-pocket utility cut, contrast topstitching, drawcord ankle.",
-      items: [
-        { label: "Ref.",   value: "YR-BT-002"       },
-        { label: "Colour", value: "Ecru / Slate"    },
-        { label: "Fabric", value: "Ripstop Cotton"  },
-        { label: "Fit",    value: "Relaxed Tapered" },
-        { label: "Price",  value: "€160"             },
-      ],
-      pageNumber: 6,
-    },
-    right: {
-      type: "photo",
-      image: "/photos/YORE NITRA/IMG_7099.JPG",
-      tag: "Look 02",
-      headline: "Cargo Trousers",
-      pageNumber: 7,
-    },
-  },
-  {
-    id: 3,
-    left: {
-      type: "photo",
-      image: "/photos/YORE NITRA/IMG_7099.JPG",
-      tag: "Look 03",
-      headline: "Hooded Overshirt",
-      pageNumber: 8,
-    },
-    right: {
-      type: "product",
-      tag: "SS26 — Tops",
-      headline: "Hooded Overshirt",
-      sub: "Lightweight technical shell with zip chest pocket and storm hood.",
-      items: [
-        { label: "Ref.",   value: "YR-TP-003"       },
-        { label: "Colour", value: "Off-White / Tar" },
-        { label: "Fabric", value: "Nylon Ripstop"   },
-        { label: "Fit",    value: "Regular"          },
-        { label: "Price",  value: "€180"             },
-      ],
-      pageNumber: 9,
-    },
-  },
-  {
-    id: 4,
-    left: {
-      type: "editorial",
-      image: "/photos/YORE NITRA/IMG_7580.JPG",
-      tag: "Closing",
-      headline: "Worn.\nNot dressed.",
-      sub: "Every piece in SS26 is designed to carry the weight of use — to improve with wear, to resist the disposable.",
-      pageNumber: 10,
-    },
-    right: {
-      type: "credits",
-      image: "/photos/YORE NITRA/IMG_7580.JPG",
-      tag: "Credits",
-      headline: "YORE SS26",
-      items: [
-        { label: "Creative Direction", value: "YORE Studio"         },
-        { label: "Photography",        value: "Nitra, Slovakia"      },
-        { label: "Season",             value: "Spring / Summer 2026" },
-        { label: "Contact",            value: "studio@yore.sk"       },
-      ],
-      pageNumber: 11,
-    },
-  },
-  // Spread 5 — physical back cover (revealed after all flips)
-  {
-    id: 5,
-    left: {
-      type: "back-cover",
-      image: "/photos/YORE NITRA/IMG_7580.JPG",
-    },
-    right: {
-      type: "back-cover",
-      image: "/photos/YORE NITRA/IMG_7099.JPG",
-    },
-  },
+const LOOKBOOK_IMAGES = [
+  "/photos_new/709A7535%20copy%202.jpg",
+  "/photos_new/709A7546%20copy.jpg",
+  "/photos_new/709A7560%20copy.jpg",
+  "/photos_new/709A7592%20copy.jpg",
+  "/photos_new/709A7601-2%20copy.jpg",
+  "/photos_new/709A7611%20copy.jpg",
+  "/photos_new/709A7627%20copy.jpg",
+  "/photos_new/709A7667%20copy.jpg",
+  "/photos_new/709A7677-2%20copy.jpg",
+  "/photos_new/POSLEDNNN.jpg",
 ];
+
+const pickLookbookImage = (index: number) =>
+  LOOKBOOK_IMAGES[index % LOOKBOOK_IMAGES.length];
+
+const SPREADS: Spread[] = Array.from({ length: 6 }, (_, i) => ({
+  id: i,
+  left: {
+    type: "photo",
+    image: pickLookbookImage(i * 2),
+  },
+  right: {
+    type: "photo",
+    image: pickLookbookImage(i * 2 + 1),
+  },
+}));
 
 // Tab colours matching the reference image (yellow, lavender, pink, green, coral, pink-hot, yellow-warm)
 const TAB_COLORS = ["#F5E642", "#C8B8E8", "#F472B6", "#86EFAC", "#FB923C", "#F9A8D4", "#FDE68A"];
@@ -269,36 +168,10 @@ function EditorialPage({ page }: { page: SpreadPage }) {
 
 function PhotoPage({ page }: { page: SpreadPage }) {
   return (
-    <div className="relative w-full h-full overflow-hidden" style={{ background: "#161616" }}>
+    <div className="relative w-full h-full overflow-hidden" style={{ background: "#101010" }}>
       {page.image && (
-        <Image src={page.image} alt={page.headline ?? ""} fill className="object-cover" sizes="50vw" />
+        <Image src={page.image} alt="" fill className="object-cover" sizes="50vw" />
       )}
-      <div
-        className="absolute inset-0"
-        style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, transparent 45%, rgba(0,0,0,0.7) 100%)" }}
-      />
-      <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
-        <div>
-          <span
-            className="block text-[#FAFAFA]/35 text-[8px] tracking-[0.45em] uppercase mb-1"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            {page.tag}
-          </span>
-          <span
-            className="block text-[#FAFAFA] text-[13px] tracking-[0.18em] uppercase font-semibold"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            {page.headline}
-          </span>
-        </div>
-        <span
-          className="text-[#FAFAFA]/30 text-[8px] tracking-[0.35em]"
-          style={{ fontFamily: "var(--font-body)" }}
-        >
-          {String(page.pageNumber ?? "").padStart(2, "0")}
-        </span>
-      </div>
     </div>
   );
 }
@@ -725,9 +598,6 @@ export default function LookbookScroll() {
               }}
             >
               {SPREADS.map((spread, i) => {
-                const isSinglePhotoSpread = i === 0 || i === total - 1;
-                const singleSpreadPage = spread.left.image ? spread.left : spread.right;
-
                 return (
                   <div
                     key={spread.id}
@@ -755,47 +625,39 @@ export default function LookbookScroll() {
                       }}
                     />
                     <EdgeTab index={i} onClick={() => jumpToSpread(i)} />
-                    {isSinglePhotoSpread ? (
-                        <div className="relative w-full h-full overflow-hidden" style={{ background: "#101010" }}>
-                        <Page page={singleSpreadPage} />
-                      </div>
-                    ) : (
-                      <>
-                        {/* Left page */}
-                        <div
-                          className="relative overflow-hidden"
-                          style={{ flex: 1, borderRight: "1px solid #0a0a0a" }}
-                        >
-                          <Page page={spread.left} />
-                        </div>
+                    {/* Left page */}
+                    <div
+                      className="relative overflow-hidden"
+                      style={{ flex: 1, borderRight: "1px solid #0a0a0a" }}
+                    >
+                      <Page page={spread.left} />
+                    </div>
 
-                        {/* Spine */}
-                        <div
-                          className="relative flex-shrink-0"
-                          style={{
-                            width: "4px",
-                            background:
-                              "linear-gradient(to right, #080808 0%, #2a2a2a 50%, #080808 100%)",
-                            zIndex: 2,
-                            boxShadow: "0 0 8px rgba(0,0,0,0.6)",
-                          }}
-                        />
+                    {/* Spine */}
+                    <div
+                      className="relative flex-shrink-0"
+                      style={{
+                        width: "4px",
+                        background:
+                          "linear-gradient(to right, #080808 0%, #2a2a2a 50%, #080808 100%)",
+                        zIndex: 2,
+                        boxShadow: "0 0 8px rgba(0,0,0,0.6)",
+                      }}
+                    />
 
-                        {/* Right page */}
-                        <div className="relative overflow-hidden" style={{ flex: 1 }}>
-                          <Page page={spread.right} />
-                        </div>
+                    {/* Right page */}
+                    <div className="relative overflow-hidden" style={{ flex: 1 }}>
+                      <Page page={spread.right} />
+                    </div>
 
-                        {/* Centre crease shadow */}
-                        <div
-                          className="absolute inset-0 pointer-events-none"
-                          style={{
-                            background:
-                              "linear-gradient(to right, rgba(0,0,0,0) 44%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0) 56%)",
-                          }}
-                        />
-                      </>
-                    )}
+                    {/* Centre crease shadow */}
+                    <div
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background:
+                          "linear-gradient(to right, rgba(0,0,0,0) 44%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0) 56%)",
+                      }}
+                    />
                   </div>
                 );
               })}
